@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="order-2 lg:order-1">
+          <div className="order-1">
             <div className="relative">
               <div className="absolute -top-6 -left-6 w-24 h-24 bg-pink-100 rounded-full blur-xl opacity-70"></div>
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-teal-100 rounded-full blur-xl opacity-70"></div>
@@ -68,7 +68,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="order-1 lg:order-2">
+          <div className="order-2">
             <div className="relative">
               <div className="absolute -top-6 -right-6 w-32 h-32 bg-yellow-100 rounded-full blur-xl opacity-70"></div>
               <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-purple-100 rounded-full blur-xl opacity-70"></div>

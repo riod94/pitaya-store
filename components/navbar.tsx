@@ -21,7 +21,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-pink-500 font-medium transition-colors">
+            {/* <Link href="/" className="text-gray-700 hover:text-pink-500 font-medium transition-colors">
               Home
             </Link>
             <Link href="/#products" className="text-gray-700 hover:text-pink-500 font-medium transition-colors">
@@ -32,12 +32,12 @@ export default function Navbar() {
             </Link>
             <Link href="/contact" className="text-gray-700 hover:text-pink-500 font-medium transition-colors">
               Contact
-            </Link>
+            </Link> */}
           </nav>
 
           {/* Action Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/cart">
+            {/* <Link href="/cart">
               <Button variant="ghost" size="icon" className="text-gray-700 hover:text-pink-500 relative">
                 <ShoppingBag className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
@@ -54,11 +54,11 @@ export default function Navbar() {
               <Button className="bg-gradient-to-r from-pink-500 to-teal-500 hover:from-pink-600 hover:to-teal-600 text-white rounded-full">
                 Sign In
               </Button>
-            </Link>
+            </Link> */}
           </div>
 
           {/* Mobile Menu Button */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          {/* <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-6 w-6" />
@@ -131,7 +131,7 @@ export default function Navbar() {
                 </div>
               </div>
             </SheetContent>
-          </Sheet>
+          </Sheet> */}
         </div>
       </div>
     </header>

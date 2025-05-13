@@ -43,11 +43,11 @@ export default function SettingsPage() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="store-email">Email Address</Label>
-                    <Input id="store-email" type="email" defaultValue="info@pitaya.com" />
+                    <Input id="store-email" type="email" defaultValue="halo.pitaya@gmail.com" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="store-phone">Phone Number</Label>
-                    <Input id="store-phone" defaultValue="+62 123 4567 890" />
+                    <Input id="store-phone" defaultValue="+62 822 7756 3627" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="store-currency">Currency</Label>
@@ -591,7 +591,7 @@ export default function SettingsPage() {
                   <div className="flex items-center justify-between p-4 border rounded-lg">
                     <div>
                       <h4 className="font-medium">Current Session</h4>
-                      <p className="text-sm text-muted-foreground">Chrome on Windows • Jakarta, Indonesia</p>
+                      <p className="text-sm text-muted-foreground">Chrome on Windows • Deli Serdang, Indonesia</p>
                       <p className="text-xs text-green-600">Active now</p>
                     </div>
                     <Button variant="outline" size="sm" disabled>
@@ -601,7 +601,7 @@ export default function SettingsPage() {
                   <div className="flex items-center justify-between p-4 border rounded-lg">
                     <div>
                       <h4 className="font-medium">Mobile App</h4>
-                      <p className="text-sm text-muted-foreground">iPhone 13 • Jakarta, Indonesia</p>
+                      <p className="text-sm text-muted-foreground">iPhone 13 • Deli Serdang, Indonesia</p>
                       <p className="text-xs text-gray-500">Last active: 2 hours ago</p>
                     </div>
                     <Button variant="outline" size="sm" className="text-red-500 hover:text-red-700">

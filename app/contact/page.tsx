@@ -56,7 +56,7 @@ export default function ContactPage() {
                   <Phone className="h-6 w-6 text-teal-500" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Phone Number</h3>
-                <p className="text-gray-600">+62 123 4567 890</p>
+                <p className="text-gray-600">+62 822 7756 3627</p>
                 <p className="text-gray-600">+62 098 7654 321</p>
               </div>
 
@@ -65,7 +65,7 @@ export default function ContactPage() {
                   <Mail className="h-6 w-6 text-purple-500" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Email Address</h3>
-                <p className="text-gray-600">info@pitaya.com</p>
+                <p className="text-gray-600">halo.pitaya@gmail.com</p>
                 <p className="text-gray-600">support@pitaya.com</p>
               </div>
 
