@@ -76,10 +76,10 @@ export default function Hero() {
               <div className="relative bg-white p-4 rounded-3xl shadow-xl overflow-hidden">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden">
                   <Image
-                    src="/placeholder.svg?height=600&width=800"
+                    src="/pricelist.png"
                     alt="Premium nuts and seeds"
                     width={800}
-                    height={600}
+                    height={1000}
                     className="w-full h-full object-cover"
                   />
                 </div>
