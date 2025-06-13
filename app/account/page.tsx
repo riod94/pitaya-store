@@ -35,8 +35,6 @@ import {
   Download,
   ArrowLeft,
 } from "lucide-react"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 
 // Sample user data
 const user = {
@@ -154,8 +152,7 @@ export default function AccountPage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-16 bg-gray-50">
+            <main className="min-h-screen pt-24 pb-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Sidebar */}
@@ -862,7 +859,6 @@ export default function AccountPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </>
+          </>
   )
 }

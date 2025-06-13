@@ -9,8 +9,6 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Eye, EyeOff } from "lucide-react"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 import { useTranslations } from 'next-intl';
 
 export default function LoginPage() {
@@ -20,8 +18,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-16 bg-gray-50">
+            <main className="min-h-screen pt-24 pb-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-md mx-auto">
             <div className="text-center mb-8">
@@ -282,7 +279,6 @@ export default function LoginPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </>
+          </>
   )
 }

@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { ArrowLeft, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 import { useTranslations } from 'next-intl';
 
 // Sample cart data
@@ -49,8 +47,7 @@ export default function CartPage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-16">
+            <main className="min-h-screen pt-24 pb-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-2 mb-8">
             <Link href="/" className="text-gray-500 hover:text-pink-500 transition-colors">
@@ -189,7 +186,6 @@ export default function CartPage() {
           )}
         </div>
       </main>
-      <Footer />
-    </>
+          </>
   )
 }

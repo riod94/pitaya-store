@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Heart, Minus, Plus, Share2, ShoppingBag, Star, Truck } from "lucide-react"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 
 // This would normally come from a database
 const product = {
@@ -68,8 +66,7 @@ const product = {
 export default function ProductPage({ params }: { params: { id: string } }) {
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-16">
+            <main className="min-h-screen pt-24 pb-16">
         <div className="container mx-auto px-4">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 mb-8 text-sm">
@@ -296,7 +293,6 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </main>
-      <Footer />
-    </>
+          </>
   )
 }

@@ -10,8 +10,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Heart, ShoppingBag, Search, SlidersHorizontal } from "lucide-react"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 
 // Product data based on the price list
 const allProducts = [
@@ -276,8 +274,7 @@ export default function ProductsPage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-16">
+            <main className="min-h-screen pt-24 pb-16">
         <div className="container mx-auto px-4">
           {/* Page Header */}
           <div className="mb-8">
@@ -469,7 +466,6 @@ export default function ProductsPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </>
+          </>
   )
 }

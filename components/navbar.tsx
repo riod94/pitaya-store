@@ -37,7 +37,7 @@ export default function Navbar() {
 							{t("home")}
 						</Link>
 						<Link
-							href="/#products"
+							href="/products"
 							className="text-gray-700 hover:text-pink-500 font-medium transition-colors"
 						>
 							{t("products")}

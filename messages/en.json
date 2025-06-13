@@ -188,16 +188,16 @@
     "heroTitle": "Get in Touch",
     "heroDesc": "Have questions about our products or services? We're here to help. Reach out to us and we'll get back to you as soon as possible.",
     "locationTitle": "Our Location",
-    "locationAddress": "Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta 10220, Indonesia",
+    "locationAddress": "Jl. Pengabdian Gg. Saga No. 309, Bandar Setia, Kec. Percut Sei Tuan, Kab. Deli Serdang, Sumatera Utara 20371, Indonesia",
     "phoneTitle": "Phone Number",
-    "phone1": "+62 123 4567 890",
-    "phone2": "+62 098 7654 321",
+    "phone1": "+62 822 7756 3627",
+    "phone2": "+62 822 7757 1211",
     "emailTitle": "Email Address",
-    "email1": "info@pitaya.com",
-    "email2": "support@pitaya.com",
+    "email1": "halo.pitaya@gmail.com",
+    "email2": "",
     "hoursTitle": "Business Hours",
-    "hours1": "Monday - Friday: 9:00 AM - 6:00 PM",
-    "hours2": "Saturday: 10:00 AM - 4:00 PM",
+    "hours1": "Monday - Saturday: 8:00 AM - 4:00 PM",
+    "hours2": "Sunday (Holiday): Closed",
     "formTitle": "Send Us a Message",
     "successTitle": "Thank You!",
     "successDesc": "Your message has been sent successfully. We'll get back to you as soon as possible.",
@@ -227,14 +227,14 @@
     "sendMessage": "Send Message",
     "findUsTitle": "Find Us",
     "hqTitle": "PITAYA Headquarters",
-    "hqDesc": "Our main office and retail store is located in the heart of Jakarta's business district. We welcome visitors during our business hours.",
+    "hqDesc": "Our main office and retail store is located in the heart of Medan's business district. We welcome visitors during our business hours.",
     "getDirections": "Get Directions",
     "faqTitle": "Frequently Asked Questions",
     "faqDesc": "Find answers to common questions about our products, ordering, and shipping.",
     "faq": {
       "1": {
         "question": "How long does shipping take?",
-        "answer": "Shipping times vary depending on your location. For Jakarta and surrounding areas, delivery typically takes 1-2 business days. For other regions in Indonesia, it may take 2-5 business days. International shipping is available and typically takes 7-14 business days."
+        "answer": "Shipping times vary depending on your location. For Medan and surrounding areas, delivery typically takes 1-2 business days. For other regions in Indonesia, it may take 2-5 business days. International shipping is available and typically takes 7-14 business days."
       },
       "2": {
         "question": "Are your products organic?",
@@ -351,7 +351,7 @@
       },
       "6": {
         "question": "How long will my order take to arrive?",
-        "answer": "Delivery times vary depending on your location. For Jakarta and surrounding areas, delivery typically takes 1-2 business days. For other regions in Indonesia, it may take 2-5 business days."
+        "answer": "Delivery times vary depending on your location. For Medan and surrounding areas, delivery typically takes 1-2 business days. For other regions in Indonesia, it may take 2-5 business days."
       }
     }
   },
@@ -368,11 +368,41 @@
     "driedFruits": "Dried Fruits",
     "giftPackages": "Gift Packages",
     "contactUsTitle": "Contact Us",
-    "address": "Jakarta, Indonesia",
-    "phone": "+62 123 4567 890",
-    "email": "info@pitaya.com",
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
-    "copyright": "© {year} PITAYA. All rights reserved."
+    "address": "Deli Serdang, Sumatera Utara, Indonesia",
+    "phone": "+62 822 7756 3627",
+    "email": "halo.pitaya@gmail.com",
+    "privacyPolicyLabel": "Privacy Policy",
+    "termsOfServiceLabel": "Terms and Conditions",
+    "copyright": "\u00a9 {year} PITAYA. All rights reserved.",
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "intro": "At PITAYA, your privacy and trust are our top priorities. This Privacy Policy describes how we collect, use, and safeguard your personal information when you shop for our premium nuts and seeds, whether online or through our customer service.",
+      "section1Title": "What Information We Collect",
+      "section1Content": "We collect information you provide directly to us, such as your name, email, phone number, shipping address, and order details when you make a purchase or contact our support. We may also collect information about your browsing behavior on our website to improve your experience.",
+      "section2Title": "How We Use Your Information",
+      "section2Content": "Your information is used to process orders, provide customer support, personalize your shopping experience, and inform you about our latest offers and products. We never sell your data to third parties. Your data may be shared only with trusted partners (such as payment and delivery providers) solely to fulfill your orders.",
+      "section3Title": "Your Rights & Choices",
+      "section3Content": "You have the right to access, correct, or delete your personal data at any time. You can also unsubscribe from our marketing communications. For any privacy-related requests, please contact us at info@pitaya.com.",
+      "section4Title": "Data Security",
+      "section4Content": "We implement strict security measures to protect your data from unauthorized access, alteration, or loss. All transactions are encrypted and your personal information is handled with the utmost care.",
+      "section5Title": "Contact Us",
+      "section5Content": "If you have any questions about our Privacy Policy or your personal data, please contact our team at info@pitaya.com."
+    },
+    "terms": {
+      "title": "Terms and Conditions",
+      "intro": "Welcome to PITAYA! By accessing and shopping on our website, you agree to the following terms and conditions designed to ensure a safe and satisfying experience for all customers.",
+      "section1Title": "Use of Our Service",
+      "section1Content": "You must use our website and services for lawful purposes only. You agree not to misuse our site, attempt unauthorized access, or disrupt our operations.",
+      "section2Title": "Orders & Transactions",
+      "section2Content": "All orders are subject to availability and confirmation. Prices, product details, and shipping fees are clearly stated before checkout. Payment must be completed before your order is processed.",
+      "section3Title": "Shipping & Delivery",
+      "section3Content": "We ship throughout Indonesia using trusted logistics partners. Delivery times may vary depending on your location. You will receive a tracking number once your order is dispatched.",
+      "section4Title": "Returns & Refunds",
+      "section4Content": "If you receive a damaged or incorrect product, please contact us within 7 days for a replacement or refund. Products must be returned in original condition. For more details, see our Returns Policy.",
+      "section5Title": "Customer Support",
+      "section5Content": "Our team is ready to assist you with any questions or issues. Contact us at info@pitaya.com for support.",
+      "section6Title": "Changes to Terms",
+      "section6Content": "PITAYA reserves the right to modify these terms at any time. Continued use of our site means you accept the latest version of our terms."
+    }
   }
 }

@@ -10,8 +10,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 import { useTranslations } from 'next-intl';
 
 export default function ContactPage() {
@@ -26,8 +24,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-16">
+            <main className="min-h-screen pt-24 pb-16">
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-pink-50 to-white py-16">
           <div className="container mx-auto px-4">
@@ -250,7 +247,6 @@ export default function ContactPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
+          </>
   )
 }

@@ -1,16 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 import { useTranslations } from 'next-intl';
 
 export default function AboutPage() {
   const t = useTranslations('About');
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-16">
+            <main className="min-h-screen pt-24 pb-16">
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-pink-50 to-white py-16">
           <div className="container mx-auto px-4">
@@ -184,7 +181,6 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
+          </>
   )
 }

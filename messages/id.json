@@ -188,16 +188,16 @@
     "heroTitle": "Hubungi Kami",
     "heroDesc": "Ada pertanyaan tentang produk atau layanan kami? Kami siap membantu. Hubungi kami dan kami akan segera merespons.",
     "locationTitle": "Lokasi Kami",
-    "locationAddress": "Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta 10220, Indonesia",
+    "locationAddress": "Jl. Pengabdian Gg. Saga No. 309, Bandar Setia, Kec. Percut Sei Tuan, Kab. Deli Serdang, Sumatera Utara 20371, Indonesia",
     "phoneTitle": "Nomor Telepon",
-    "phone1": "+62 123 4567 890",
-    "phone2": "+62 098 7654 321",
+    "phone1": "+62 822 7756 3627",
+    "phone2": "+62 822 7757 1211",
     "emailTitle": "Alamat Email",
-    "email1": "info@pitaya.com",
-    "email2": "support@pitaya.com",
+    "email1": "halo.pitaya@gmail.com",
+    "email2": "",
     "hoursTitle": "Jam Operasional",
-    "hours1": "Senin - Jumat: 09.00 - 18.00 WIB",
-    "hours2": "Sabtu: 10.00 - 16.00 WIB",
+    "hours1": "Senin - Sabtu: 08.00 - 16.00 WIB",
+    "hours2": "Minggu (Hari Libur): Tutup",
     "formTitle": "Kirim Pesan ke Kami",
     "successTitle": "Terima Kasih!",
     "successDesc": "Pesan Anda berhasil dikirim. Kami akan segera menghubungi Anda.",
@@ -227,14 +227,14 @@
     "sendMessage": "Kirim Pesan",
     "findUsTitle": "Temukan Kami",
     "hqTitle": "Kantor Pusat PITAYA",
-    "hqDesc": "Kantor utama dan toko ritel kami berada di pusat bisnis Jakarta. Kami menerima kunjungan selama jam operasional.",
+    "hqDesc": "Kantor utama dan toko ritel kami berada di pusat bisnis Medan. Kami menerima kunjungan selama jam operasional.",
     "getDirections": "Lihat Rute",
     "faqTitle": "Pertanyaan yang Sering Diajukan",
     "faqDesc": "Temukan jawaban atas pertanyaan umum tentang produk, pemesanan, dan pengiriman.",
     "faq": {
       "1": {
         "question": "Berapa lama pengiriman berlangsung?",
-        "answer": "Waktu pengiriman bervariasi tergantung lokasi Anda. Untuk Jakarta dan sekitarnya, biasanya 1-2 hari kerja. Wilayah lain di Indonesia 2-5 hari kerja. Pengiriman internasional 7-14 hari kerja."
+        "answer": "Waktu pengiriman bervariasi tergantung lokasi Anda. Untuk Medan dan sekitarnya, biasanya 1-2 hari kerja. Wilayah lain di Indonesia 2-5 hari kerja. Pengiriman internasional 7-14 hari kerja."
       },
       "2": {
         "question": "Apakah produk kalian organik?",
@@ -351,7 +351,7 @@
       },
       "6": {
         "question": "Berapa lama pesanan saya akan sampai?",
-        "answer": "Waktu pengiriman bervariasi tergantung lokasi Anda. Untuk Jakarta dan sekitarnya, biasanya 1-2 hari kerja. Wilayah lain di Indonesia 2-5 hari kerja."
+        "answer": "Waktu pengiriman bervariasi tergantung lokasi Anda. Untuk Medan dan sekitarnya, biasanya 1-2 hari kerja. Wilayah lain di Indonesia 2-5 hari kerja."
       }
     }
   },
@@ -368,11 +368,41 @@
     "driedFruits": "Buah Kering",
     "giftPackages": "Paket Hadiah",
     "contactUsTitle": "Kontak Kami",
-    "address": "Jakarta, Indonesia",
+    "address": "Deli Serdang, Sumatera Utara, Indonesia",
     "phone": "+62 123 4567 890",
     "email": "info@pitaya.com",
-    "privacyPolicy": "Kebijakan Privasi",
-    "termsOfService": "Syarat & Ketentuan",
-    "copyright": "© {year} PITAYA. Seluruh hak cipta."
+    "privacyPolicyLabel": "Kebijakan Privasi",
+    "termsOfServiceLabel": "Syarat & Ketentuan",
+    "copyright": "\u00a9 {year} PITAYA. Seluruh hak cipta.",
+    "privacyPolicy": {
+      "title": "Kebijakan Privasi",
+      "intro": "Di PITAYA, privasi dan kepercayaan Anda adalah prioritas utama kami. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi data pribadi Anda saat Anda berbelanja kacang dan biji-bijian premium kami, baik secara online maupun melalui layanan pelanggan.",
+      "section1Title": "Data yang Kami Kumpulkan",
+      "section1Content": "Kami mengumpulkan data yang Anda berikan secara langsung, seperti nama, email, nomor telepon, alamat pengiriman, dan detail pesanan saat Anda melakukan pembelian atau menghubungi layanan kami. Kami juga dapat mengumpulkan informasi perilaku Anda di situs kami untuk meningkatkan pengalaman belanja Anda.",
+      "section2Title": "Penggunaan Data Anda",
+      "section2Content": "Data Anda digunakan untuk memproses pesanan, memberikan dukungan pelanggan, personalisasi pengalaman belanja, serta menginformasikan promo dan produk terbaru. Kami tidak pernah menjual data Anda ke pihak ketiga. Data hanya dibagikan ke mitra terpercaya (seperti pembayaran dan pengiriman) untuk keperluan pemenuhan pesanan.",
+      "section3Title": "Hak & Pilihan Anda",
+      "section3Content": "Anda berhak mengakses, memperbaiki, atau menghapus data pribadi Anda kapan saja. Anda juga dapat berhenti berlangganan komunikasi pemasaran kami. Untuk permintaan terkait privasi, hubungi info@pitaya.com.",
+      "section4Title": "Keamanan Data",
+      "section4Content": "Kami menerapkan langkah keamanan ketat untuk melindungi data Anda dari akses, perubahan, atau kehilangan yang tidak sah. Semua transaksi dienkripsi dan data pribadi Anda ditangani dengan sangat hati-hati.",
+      "section5Title": "Kontak Kami",
+      "section5Content": "Jika Anda memiliki pertanyaan tentang Kebijakan Privasi atau data pribadi Anda, silakan hubungi tim kami di info@pitaya.com."
+    },
+    "terms": {
+      "title": "Syarat dan Ketentuan",
+      "intro": "Selamat datang di PITAYA! Dengan mengakses dan berbelanja di situs kami, Anda menyetujui syarat dan ketentuan berikut yang dibuat untuk memastikan pengalaman belanja yang aman dan memuaskan bagi semua pelanggan.",
+      "section1Title": "Penggunaan Layanan",
+      "section1Content": "Anda wajib menggunakan situs dan layanan kami hanya untuk tujuan yang sah. Anda dilarang menyalahgunakan situs, mencoba mengakses tanpa izin, atau mengganggu operasional kami.",
+      "section2Title": "Transaksi & Pemesanan",
+      "section2Content": "Semua pesanan tergantung ketersediaan dan konfirmasi. Harga, detail produk, dan biaya pengiriman akan diinformasikan sebelum checkout. Pembayaran harus diselesaikan sebelum pesanan diproses.",
+      "section3Title": "Pengiriman & Delivery",
+      "section3Content": "Kami melayani pengiriman ke seluruh Indonesia dengan mitra logistik terpercaya. Waktu pengiriman dapat berbeda sesuai lokasi Anda. Nomor resi akan diberikan setelah pesanan dikirim.",
+      "section4Title": "Pengembalian & Refund",
+      "section4Content": "Jika Anda menerima produk yang rusak atau salah, silakan hubungi kami dalam 7 hari untuk penggantian atau refund. Produk harus dikembalikan dalam kondisi asli. Detail lebih lanjut dapat dilihat di Kebijakan Pengembalian kami.",
+      "section5Title": "Layanan Pelanggan",
+      "section5Content": "Tim kami siap membantu Anda untuk setiap pertanyaan atau kendala. Hubungi info@pitaya.com untuk bantuan.",
+      "section6Title": "Perubahan Syarat",
+      "section6Content": "PITAYA berhak mengubah syarat dan ketentuan ini kapan saja. Penggunaan situs yang berkelanjutan berarti Anda menyetujui versi terbaru dari syarat ini."
+    }
   }
 }
