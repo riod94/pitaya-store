@@ -3,8 +3,10 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import { useTranslations } from 'next-intl';
 
 export default function AboutPage() {
+  const t = useTranslations('About');
   return (
     <>
       <Navbar />
@@ -13,9 +15,9 @@ export default function AboutPage() {
         <section className="bg-gradient-to-b from-pink-50 to-white py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Story</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('heroTitle')}</h1>
               <p className="text-lg text-gray-600 mb-8">
-                Discover the journey behind PITAYA and our commitment to bringing you the finest quality nuts and seeds.
+                {t('heroDesc')}
               </p>
             </div>
           </div>
@@ -26,22 +28,10 @@ export default function AboutPage() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl font-bold mb-6">From Farm to Table</h2>
-                <p className="text-gray-600 mb-4">
-                  PITAYA was founded in 2018 with a simple mission: to provide the highest quality nuts and seeds while
-                  supporting sustainable farming practices. What began as a small family business has grown into a
-                  trusted brand known for premium products and exceptional customer service.
-                </p>
-                <p className="text-gray-600 mb-4">
-                  We work directly with farmers across Indonesia and around the world to source the freshest, most
-                  flavorful nuts and seeds. By cutting out middlemen, we ensure that our farmers receive fair
-                  compensation for their hard work and that our customers receive the best possible products.
-                </p>
-                <p className="text-gray-600">
-                  Every batch of nuts and seeds is carefully selected, processed with minimal intervention, and packaged
-                  to preserve freshness. We believe that nature provides the perfect flavors - our job is simply to
-                  deliver them to you in their purest form.
-                </p>
+                <h2 className="text-3xl font-bold mb-6">{t('storyTitle')}</h2>
+                <p className="text-gray-600 mb-4">{t('story1')}</p>
+                <p className="text-gray-600 mb-4">{t('story2')}</p>
+                <p className="text-gray-600">{t('story3')}</p>
               </div>
               <div className="relative">
                 <div className="absolute -top-6 -right-6 w-32 h-32 bg-pink-100 rounded-full blur-xl opacity-70"></div>
@@ -64,11 +54,8 @@ export default function AboutPage() {
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Our Values</h2>
-              <p className="text-gray-600">
-                At PITAYA, our values guide everything we do. From sourcing to delivery, we're committed to excellence,
-                sustainability, and your satisfaction.
-              </p>
+              <h2 className="text-3xl font-bold mb-4">{t('valuesTitle')}</h2>
+              <p className="text-gray-600">{t('valuesDesc')}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -89,11 +76,8 @@ export default function AboutPage() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Quality First</h3>
-                <p className="text-gray-600">
-                  We never compromise on quality. Every product we offer meets our strict standards for taste,
-                  freshness, and nutritional value.
-                </p>
+                <h3 className="text-xl font-semibold mb-2">{t('value1.title')}</h3>
+                <p className="text-gray-600">{t('value1.desc')}</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow-sm">
@@ -113,11 +97,8 @@ export default function AboutPage() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Sustainability</h3>
-                <p className="text-gray-600">
-                  We're committed to environmentally responsible practices, from supporting sustainable farming to using
-                  eco-friendly packaging.
-                </p>
+                <h3 className="text-xl font-semibold mb-2">{t('value2.title')}</h3>
+                <p className="text-gray-600">{t('value2.desc')}</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow-sm">
@@ -137,11 +118,8 @@ export default function AboutPage() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Community</h3>
-                <p className="text-gray-600">
-                  We believe in building strong relationships with our farmers, customers, and communities through fair
-                  practices and giving back.
-                </p>
+                <h3 className="text-xl font-semibold mb-2">{t('value3.title')}</h3>
+                <p className="text-gray-600">{t('value3.desc')}</p>
               </div>
             </div>
           </div>
@@ -151,52 +129,32 @@ export default function AboutPage() {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Meet Our Team</h2>
-              <p className="text-gray-600">
-                The passionate people behind PITAYA who work tirelessly to bring you the best nuts and seeds.
-              </p>
+              <h2 className="text-3xl font-bold mb-4">{t('teamTitle')}</h2>
+              <p className="text-gray-600">{t('teamDesc')}</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                {
-                  name: "Sarah Johnson",
-                  role: "Founder & CEO",
-                  bio: "With over 15 years in the food industry, Sarah founded PITAYA with a vision to revolutionize healthy snacking.",
-                },
-                {
-                  name: "David Chen",
-                  role: "Head of Sourcing",
-                  bio: "David travels the world to find the best nuts and seeds, building relationships with farmers who share our values.",
-                },
-                {
-                  name: "Anita Patel",
-                  role: "Quality Control",
-                  bio: "A food scientist by training, Anita ensures that every product meets our strict quality standards.",
-                },
-                {
-                  name: "Michael Rodriguez",
-                  role: "Customer Experience",
-                  bio: "Michael leads our customer service team, ensuring that every interaction with PITAYA exceeds expectations.",
-                },
-              ].map((member, index) => (
-                <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm">
-                  <div className="h-64 bg-gray-200">
-                    <Image
-                      src={`/placeholder.svg?height=300&width=300&text=${member.name}`}
-                      alt={member.name}
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-cover"
-                    />
+              {[1, 2, 3, 4].map((idx) => {
+                const member = t.raw(`team.${idx}`);
+                return (
+                  <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-sm">
+                    <div className="h-64 bg-gray-200">
+                      <Image
+                        src={`/placeholder.svg?height=300&width=300&text=${member.name}`}
+                        alt={member.name}
+                        width={300}
+                        height={300}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
+                      <p className="text-pink-500 mb-3">{member.role}</p>
+                      <p className="text-gray-600 text-sm">{member.bio}</p>
+                    </div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                    <p className="text-pink-500 mb-3">{member.role}</p>
-                    <p className="text-gray-600 text-sm">{member.bio}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -205,14 +163,12 @@ export default function AboutPage() {
         <section className="py-16 bg-gradient-to-r from-pink-500 to-teal-500 text-white">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6">Join the PITAYA Family</h2>
-              <p className="text-lg mb-8 opacity-90">
-                Experience the difference of premium nuts and seeds. Start your journey to healthier snacking today.
-              </p>
+              <h2 className="text-3xl font-bold mb-6">{t('ctaTitle')}</h2>
+              <p className="text-lg mb-8 opacity-90">{t('ctaDesc')}</p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/#products">
                   <Button className="bg-white text-pink-600 hover:bg-gray-100 px-8 py-3 rounded-full text-lg font-medium">
-                    Shop Now
+                    {t('ctaShop')}
                   </Button>
                 </Link>
                 <Link href="/contact">
@@ -220,7 +176,7 @@ export default function AboutPage() {
                     variant="outline"
                     className="border-white text-white hover:bg-white/10 px-8 py-3 rounded-full text-lg font-medium"
                   >
-                    Contact Us
+                    {t('ctaContact')}
                   </Button>
                 </Link>
               </div>

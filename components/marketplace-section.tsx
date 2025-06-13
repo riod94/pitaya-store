@@ -34,14 +34,17 @@ const marketplaces = [
   },
 ]
 
+import { useTranslations } from 'next-intl'
+
 export default function MarketplaceSection() {
+  const t = useTranslations('MarketplaceSection');
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Shop on Your Favorite Platform</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{t('title')}</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Find our products on these popular e-commerce platforms for a convenient shopping experience.
+            {t('desc')}
           </p>
         </div>
 
@@ -69,9 +72,9 @@ export default function MarketplaceSection() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-gray-500 mb-4">Prefer to shop on our official store?</p>
+          <p className="text-gray-500 mb-4">{t('preferOfficial')}</p>
           <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full">
-            Visit Our Official Store
+            {t('visitOfficial')}
           </Button>
         </div>
       </div>

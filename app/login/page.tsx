@@ -11,8 +11,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Eye, EyeOff } from "lucide-react"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import { useTranslations } from 'next-intl';
 
 export default function LoginPage() {
+  const t = useTranslations('Login');
   const [showPassword, setShowPassword] = useState(false)
   const [activeTab, setActiveTab] = useState("login")
 
@@ -25,23 +27,23 @@ export default function LoginPage() {
             <div className="text-center mb-8">
               <Image
                 src="/logo-pitaya-transparan.png"
-                alt="PITAYA"
+                alt={t('logoAlt')}
                 width={180}
                 height={50}
                 className="h-12 w-auto mx-auto mb-6"
               />
-              <h1 className="text-2xl font-bold">Welcome to PITAYA</h1>
-              <p className="text-gray-600 mt-2">Sign in to your account or create a new one</p>
+              <h1 className="text-2xl font-bold">{t('welcome')}</h1>
+              <p className="text-gray-600 mt-2">{t('desc')}</p>
             </div>
 
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
               <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <TabsList className="grid grid-cols-2 w-full rounded-none">
                   <TabsTrigger value="login" className="rounded-none py-4">
-                    Login
+                    {t('tabLogin')}
                   </TabsTrigger>
                   <TabsTrigger value="register" className="rounded-none py-4">
-                    Register
+                    {t('tabRegister')}
                   </TabsTrigger>
                 </TabsList>
 
@@ -49,24 +51,24 @@ export default function LoginPage() {
                   <form>
                     <div className="space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="Enter your email" required />
+                        <Label htmlFor="email">{t('email')}</Label>
+                        <Input id="email" type="email" placeholder={t('emailPlaceholder')} required />
                       </div>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <Label htmlFor="password">Password</Label>
+                          <Label htmlFor="password">{t('password')}</Label>
                           <Link
                             href="/forgot-password"
                             className="text-sm text-pink-500 hover:text-pink-600 transition-colors"
                           >
-                            Forgot password?
+                            {t('forgot')}
                           </Link>
                         </div>
                         <div className="relative">
                           <Input
                             id="password"
                             type={showPassword ? "text" : "password"}
-                            placeholder="Enter your password"
+                            placeholder={t('passwordPlaceholder')}
                             required
                           />
                           <button
@@ -81,14 +83,14 @@ export default function LoginPage() {
                       <div className="flex items-center space-x-2">
                         <Checkbox id="remember" />
                         <Label htmlFor="remember" className="text-sm font-normal">
-                          Remember me
+                          {t('remember')}
                         </Label>
                       </div>
                       <Button
                         type="submit"
                         className="w-full bg-gradient-to-r from-pink-500 to-teal-500 hover:from-pink-600 hover:to-teal-600 text-white"
                       >
-                        Sign In
+                        {t('signIn')}
                       </Button>
                     </div>
                   </form>
@@ -99,7 +101,7 @@ export default function LoginPage() {
                         <div className="w-full border-t border-gray-200"></div>
                       </div>
                       <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                        <span className="px-2 bg-white text-gray-500">{t('orContinue')}</span>
                       </div>
                     </div>
 
@@ -138,13 +140,12 @@ export default function LoginPage() {
 
                   <div className="mt-6 text-center">
                     <p className="text-sm text-gray-600">
-                      Don't have an account?{" "}
-                      <button
+                      {t('noAccount')} <button
                         type="button"
                         className="text-pink-500 hover:text-pink-600 font-medium transition-colors"
                         onClick={() => setActiveTab("register")}
                       >
-                        Sign up
+                        {t('signUp')}
                       </button>
                     </p>
                   </div>
@@ -153,27 +154,21 @@ export default function LoginPage() {
                 <TabsContent value="register" className="p-6">
                   <form>
                     <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="first-name">First Name</Label>
-                          <Input id="first-name" placeholder="Enter your first name" required />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="last-name">Last Name</Label>
-                          <Input id="last-name" placeholder="Enter your last name" required />
-                        </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="full-name">{t('fullName')}</Label>
+                        <Input id="full-name" placeholder={t('fullNamePlaceholder')} required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="register-email">Email</Label>
-                        <Input id="register-email" type="email" placeholder="Enter your email" required />
+                        <Label htmlFor="register-email">{t('registerEmail')}</Label>
+                        <Input id="register-email" type="email" placeholder={t('registerEmailPlaceholder')} required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="register-password">Password</Label>
+                        <Label htmlFor="register-password">{t('registerPassword')}</Label>
                         <div className="relative">
                           <Input
                             id="register-password"
                             type={showPassword ? "text" : "password"}
-                            placeholder="Create a password"
+                            placeholder={t('registerPasswordPlaceholder')}
                             required
                           />
                           <button
@@ -185,36 +180,29 @@ export default function LoginPage() {
                           </button>
                         </div>
                         <p className="text-xs text-gray-500">
-                          Password must be at least 8 characters long with 1 uppercase, 1 lowercase and 1 number
+                          {t('passwordHint')}
                         </p>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="confirm-password">Confirm Password</Label>
+                        <Label htmlFor="confirm-password">{t('confirmPassword')}</Label>
                         <Input
                           id="confirm-password"
                           type={showPassword ? "text" : "password"}
-                          placeholder="Confirm your password"
+                          placeholder={t('confirmPasswordPlaceholder')}
                           required
                         />
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox id="terms" required />
                         <Label htmlFor="terms" className="text-sm font-normal">
-                          I agree to the{" "}
-                          <Link href="/terms" className="text-pink-500 hover:text-pink-600 transition-colors">
-                            Terms of Service
-                          </Link>{" "}
-                          and{" "}
-                          <Link href="/privacy" className="text-pink-500 hover:text-pink-600 transition-colors">
-                            Privacy Policy
-                          </Link>
+                          {t('agree')} <Link href="/terms" className="text-pink-500 hover:text-pink-600 transition-colors">{t('terms')}</Link> {t('and')} <Link href="/privacy" className="text-pink-500 hover:text-pink-600 transition-colors">{t('privacy')}</Link>
                         </Label>
                       </div>
                       <Button
                         type="submit"
                         className="w-full bg-gradient-to-r from-pink-500 to-teal-500 hover:from-pink-600 hover:to-teal-600 text-white"
                       >
-                        Create Account
+                        {t('createAccount')}
                       </Button>
                     </div>
                   </form>
@@ -225,7 +213,7 @@ export default function LoginPage() {
                         <div className="w-full border-t border-gray-200"></div>
                       </div>
                       <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-white text-gray-500">Or sign up with</span>
+                        <span className="px-2 bg-white text-gray-500">{t('orSignUp')}</span>
                       </div>
                     </div>
 

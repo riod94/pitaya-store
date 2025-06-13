@@ -1,0 +1,378 @@
+{
+  "LocaleSwitcher": {
+    "en": "English",
+    "id": "Indonesia",
+    "label": "ID"
+  },
+  "Navbar": {
+    "cart": "Keranjang",
+    "signIn": "Masuk",
+    "myAccount": "Akun Saya",
+    "home": "Beranda",
+    "products": "Produk",
+    "about": "Tentang",
+    "contact": "Kontak",
+    "language": "Pilih Bahasa"
+  },
+  "ProductSection": {
+    "title": "Produk Unggulan",
+    "titleHighlight": "Kami",
+    "subtitle": "Jelajahi pilihan kacang dan biji-bijian berkualitas tinggi, dipilih dari pemasok terbaik dan diproses dengan hati-hati untuk menjaga kebaikan alaminya.",
+    "addToCart": "Tambah ke Keranjang",
+    "viewFullPriceList": "Lihat Daftar Harga Lengkap",
+    "product": {
+      "1": {
+        "name": "Pistachio Cangkang",
+        "description": "Pistachio berkualitas premium dengan cangkang, cocok untuk camilan sehat.",
+        "badge": "Terlaris"
+      },
+      "2": {
+        "name": "Mede Panggang",
+        "description": "Kacang mede panggang dengan rasa gurih dan kaya."
+      },
+      "3": {
+        "name": "Almond Panggang",
+        "description": "Almond panggang, camilan bergizi dan lezat.",
+        "badge": "Populer"
+      },
+      "4": {
+        "name": "Walnut Panggang",
+        "description": "Walnut panggang dengan cita rasa khas dan kaya."
+      },
+      "5": {
+        "name": "Hazelnut",
+        "description": "Hazelnut premium, cocok untuk camilan atau bahan kue.",
+        "badge": "Baru"
+      },
+      "6": {
+        "name": "Cranberry",
+        "description": "Cranberry kering, manis asam menyegarkan untuk diet Anda."
+      },
+      "7": {
+        "name": "Chia Seed",
+        "description": "Chia seed kaya nutrisi untuk gaya hidup sehat."
+      },
+      "8": {
+        "name": "Kismis Hitam",
+        "description": "Kismis hitam, manis alami dan kaya nutrisi."
+      }
+    }
+  },
+  "Product": {
+    "addToCart": "Tambah ke Keranjang",
+    "buyNow": "Beli Sekarang",
+    "added": "Ditambahkan"
+  },
+  "about": "Tentang",
+  "contact": "Kontak",
+  "language": "Pilih Bahasa",
+  "Login": {
+    "logoAlt": "Logo PITAYA",
+    "welcome": "Selamat datang di PITAYA",
+    "desc": "Masuk ke akun Anda atau buat akun baru",
+    "tabLogin": "Masuk",
+    "tabRegister": "Daftar",
+    "email": "Email",
+    "emailPlaceholder": "Masukkan email Anda",
+    "password": "Kata Sandi",
+    "passwordPlaceholder": "Masukkan kata sandi Anda",
+    "forgot": "Lupa kata sandi?",
+    "remember": "Ingat saya",
+    "signIn": "Masuk",
+    "orContinue": "Atau lanjutkan dengan",
+    "google": "Google",
+    "facebook": "Facebook",
+    "noAccount": "Belum punya akun?",
+    "signUp": "Daftar",
+    "fullName": "Nama Lengkap",
+    "fullNamePlaceholder": "Masukkan nama lengkap Anda",
+    "firstName": "Nama Depan",
+    "firstNamePlaceholder": "Masukkan nama depan Anda",
+    "lastName": "Nama Belakang",
+    "lastNamePlaceholder": "Masukkan nama belakang Anda",
+    "registerEmail": "Email",
+    "registerEmailPlaceholder": "Masukkan email Anda",
+    "registerPassword": "Kata Sandi",
+    "registerPasswordPlaceholder": "Buat kata sandi",
+    "confirmPassword": "Konfirmasi Kata Sandi",
+    "confirmPasswordPlaceholder": "Konfirmasi kata sandi Anda",
+    "passwordHint": "Kata sandi minimal 8 karakter, mengandung huruf besar, kecil, dan angka",
+    "agree": "Saya setuju dengan",
+    "terms": "Syarat Layanan",
+    "and": "dan",
+    "privacy": "Kebijakan Privasi",
+    "createAccount": "Buat Akun",
+    "orSignUp": "Atau daftar dengan"
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "as": "Checkout sebagai",
+    "tabAccount": "Pelanggan Terdaftar",
+    "tabGuest": "Checkout Tamu",
+    "guestDesc": "Lanjutkan sebagai tamu. Anda dapat melacak pesanan dengan email dan ID pesanan.",
+    "continueGuest": "Lanjutkan sebagai Tamu",
+    "email": "Email",
+    "emailPlaceholder": "Masukkan email Anda",
+    "password": "Kata Sandi",
+    "passwordPlaceholder": "Masukkan kata sandi Anda",
+    "signInContinue": "Masuk & Lanjutkan",
+    "noAccount": "Belum punya akun?",
+    "createAccount": "Buat akun",
+    "shippingTitle": "Informasi Pengiriman",
+    "firstName": "Nama Depan",
+    "firstNamePlaceholder": "Masukkan nama depan Anda",
+    "lastName": "Nama Belakang",
+    "lastNamePlaceholder": "Masukkan nama belakang Anda",
+    "phone": "Telepon",
+    "phonePlaceholder": "Masukkan nomor telepon Anda",
+    "address": "Alamat",
+    "addressPlaceholder": "Masukkan alamat lengkap Anda",
+    "city": "Kota",
+    "cityPlaceholder": "Masukkan kota Anda",
+    "province": "Provinsi",
+    "provincePlaceholder": "Masukkan provinsi Anda",
+    "postalCode": "Kode Pos",
+    "postalCodePlaceholder": "Masukkan kode pos Anda",
+    "notes": "Catatan Pesanan (Opsional)",
+    "notesPlaceholder": "Tambahkan instruksi khusus atau catatan untuk pesanan Anda",
+    "continuePayment": "Lanjut ke Pembayaran",
+    "paymentTitle": "Metode Pembayaran",
+    "bankTransfer": "Transfer Bank",
+    "bankTransferDesc": "Bayar melalui transfer bank",
+    "eWallet": "Dompet Digital",
+    "eWalletDesc": "GoPay, OVO, DANA, LinkAja",
+    "creditCard": "Kartu Kredit/Debit",
+    "creditCardDesc": "Visa, Mastercard, JCB",
+    "agree": "Saya setuju dengan",
+    "terms": "Syarat Layanan",
+    "and": "dan",
+    "privacy": "Kebijakan Privasi",
+    "placeOrder": "Buat Pesanan",
+    "summaryTitle": "Ringkasan Pesanan",
+    "orderId": "ID Pesanan",
+    "successTitle": "Pesanan Berhasil!",
+    "successDesc": "Terima kasih atas pesanan Anda. Pesanan telah kami terima dan sedang diproses.",
+    "guestSuccessDesc": "Anda dapat melacak status pesanan dengan ID pesanan dan email.",
+    "trackOrderCta": "Lacak Pesanan",
+    "accountSuccessDesc": "Anda dapat melihat detail pesanan di dashboard akun.",
+    "accountCta": "Ke akun Anda",
+    "viewOrder": "Lihat Pesanan",
+    "continueShopping": "Belanja Lagi",
+    "noItems": "Tidak ada item di keranjang",
+    "subtotal": "Subtotal",
+    "shipping": "Ongkir",
+    "discount": "Diskon",
+    "total": "Total"
+  },
+  "Cart": {
+    "title": "Keranjang Belanja Anda",
+    "cartItems": "Item di Keranjang ({count})",
+    "clearCart": "Kosongkan Keranjang",
+    "size": "Ukuran",
+    "promoTitle": "Punya Kode Promo?",
+    "promoPlaceholder": "Masukkan kode promo",
+    "apply": "Gunakan",
+    "summaryTitle": "Ringkasan Pesanan",
+    "subtotal": "Subtotal",
+    "shipping": "Ongkir",
+    "discount": "Diskon",
+    "total": "Total",
+    "checkout": "Lanjut ke Pembayaran",
+    "continueShopping": "Belanja Lagi",
+    "weAccept": "Kami Menerima",
+    "emptyTitle": "Keranjang Anda kosong",
+    "emptyDesc": "Sepertinya Anda belum menambahkan produk apapun ke keranjang.",
+    "emptyCta": "Mulai Belanja"
+  },
+  "Contact": {
+    "heroTitle": "Hubungi Kami",
+    "heroDesc": "Ada pertanyaan tentang produk atau layanan kami? Kami siap membantu. Hubungi kami dan kami akan segera merespons.",
+    "locationTitle": "Lokasi Kami",
+    "locationAddress": "Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta 10220, Indonesia",
+    "phoneTitle": "Nomor Telepon",
+    "phone1": "+62 123 4567 890",
+    "phone2": "+62 098 7654 321",
+    "emailTitle": "Alamat Email",
+    "email1": "info@pitaya.com",
+    "email2": "support@pitaya.com",
+    "hoursTitle": "Jam Operasional",
+    "hours1": "Senin - Jumat: 09.00 - 18.00 WIB",
+    "hours2": "Sabtu: 10.00 - 16.00 WIB",
+    "formTitle": "Kirim Pesan ke Kami",
+    "successTitle": "Terima Kasih!",
+    "successDesc": "Pesan Anda berhasil dikirim. Kami akan segera menghubungi Anda.",
+    "successCta": "Kirim Pesan Lagi",
+    "firstName": "Nama Depan",
+    "firstNamePlaceholder": "Masukkan nama depan Anda",
+    "lastName": "Nama Belakang",
+    "lastNamePlaceholder": "Masukkan nama belakang Anda",
+    "email": "Email",
+    "emailPlaceholder": "Masukkan email Anda",
+    "phone": "Telepon (Opsional)",
+    "phonePlaceholder": "Masukkan nomor telepon Anda",
+    "subject": "Subjek",
+    "subjectPlaceholder": "Pilih subjek",
+    "subjectGeneral": "Pertanyaan Umum",
+    "subjectProduct": "Pertanyaan Produk",
+    "subjectOrder": "Status Pesanan",
+    "subjectWholesale": "Permintaan Grosir",
+    "subjectFeedback": "Masukan & Saran",
+    "howHear": "Bagaimana Anda mengetahui kami?",
+    "hearSocial": "Media Sosial",
+    "hearFriend": "Teman/Keluarga",
+    "hearSearch": "Mesin Pencari",
+    "hearOther": "Lainnya",
+    "message": "Pesan",
+    "messagePlaceholder": "Tulis pesan Anda di sini...",
+    "sendMessage": "Kirim Pesan",
+    "findUsTitle": "Temukan Kami",
+    "hqTitle": "Kantor Pusat PITAYA",
+    "hqDesc": "Kantor utama dan toko ritel kami berada di pusat bisnis Jakarta. Kami menerima kunjungan selama jam operasional.",
+    "getDirections": "Lihat Rute",
+    "faqTitle": "Pertanyaan yang Sering Diajukan",
+    "faqDesc": "Temukan jawaban atas pertanyaan umum tentang produk, pemesanan, dan pengiriman.",
+    "faq": {
+      "1": {
+        "question": "Berapa lama pengiriman berlangsung?",
+        "answer": "Waktu pengiriman bervariasi tergantung lokasi Anda. Untuk Jakarta dan sekitarnya, biasanya 1-2 hari kerja. Wilayah lain di Indonesia 2-5 hari kerja. Pengiriman internasional 7-14 hari kerja."
+      },
+      "2": {
+        "question": "Apakah produk kalian organik?",
+        "answer": "Banyak produk kami bersertifikat organik (tertera di halaman produk). Kami berkomitmen menawarkan opsi organik, namun beberapa produk mungkin belum bersertifikat meski tetap diproses secara alami."
+      },
+      "3": {
+        "question": "Apakah tersedia harga grosir?",
+        "answer": "Ya, kami menyediakan harga grosir untuk bisnis. Silakan hubungi departemen grosir kami di wholesale@pitaya.com atau isi formulir kontak dengan subjek 'Permintaan Grosir'."
+      },
+      "4": {
+        "question": "Bagaimana kebijakan retur PITAYA?",
+        "answer": "Kami menjamin kualitas produk kami. Jika Anda tidak puas dengan pembelian, hubungi kami maksimal 7 hari setelah barang diterima. Kami akan mengatur penggantian atau pengembalian dana sesuai kebijakan."
+      }
+    },
+    "faqMore": "Tidak menemukan jawaban Anda? Hubungi kami, tim kami siap membantu.",
+    "faqCta": "Hubungi Dukungan"
+  },
+  "About": {
+    "heroTitle": "Kisah Kami",
+    "heroDesc": "Temukan perjalanan PITAYA dan komitmen kami untuk menghadirkan kacang dan biji-bijian berkualitas terbaik.",
+    "storyTitle": "Dari Kebun ke Meja Anda",
+    "story1": "PITAYA didirikan pada tahun 2018 dengan misi sederhana: menyediakan kacang dan biji-bijian berkualitas tinggi sembari mendukung praktik pertanian berkelanjutan. Dimulai dari usaha keluarga kecil, kini PITAYA dikenal sebagai merek terpercaya dengan produk premium dan layanan pelanggan istimewa.",
+    "story2": "Kami bekerja langsung dengan petani di seluruh Indonesia dan dunia untuk mendapatkan kacang dan biji-bijian paling segar dan lezat. Dengan memangkas perantara, kami memastikan petani mendapat kompensasi adil dan pelanggan menerima produk terbaik.",
+    "story3": "Setiap batch kacang dan biji-bijian dipilih secara cermat, diproses seminimal mungkin, dan dikemas untuk menjaga kesegaran. Kami percaya alam telah menyediakan rasa terbaik—tugas kami hanya mengantarkannya ke Anda dalam bentuk paling murni.",
+    "valuesTitle": "Nilai-Nilai Kami",
+    "valuesDesc": "Nilai-nilai PITAYA menjadi pedoman di setiap langkah. Dari sumber hingga pengiriman, kami berkomitmen pada keunggulan, keberlanjutan, dan kepuasan Anda.",
+    "value1": {
+      "title": "Kualitas Utama",
+      "desc": "Kami tidak pernah berkompromi soal kualitas. Setiap produk memenuhi standar ketat rasa, kesegaran, dan nilai gizi kami."
+    },
+    "value2": {
+      "title": "Keberlanjutan",
+      "desc": "Kami berkomitmen pada praktik ramah lingkungan, mulai dari mendukung pertanian berkelanjutan hingga penggunaan kemasan ramah lingkungan."
+    },
+    "value3": {
+      "title": "Komunitas",
+      "desc": "Kami percaya membangun hubungan erat dengan petani, pelanggan, dan komunitas melalui praktik adil dan berbagi manfaat."
+    },
+    "teamTitle": "Tim Kami",
+    "teamDesc": "Orang-orang penuh semangat di balik PITAYA yang bekerja keras menghadirkan kacang & biji terbaik untuk Anda.",
+    "team": {
+      "1": {
+        "name": "Sarah Johnson",
+        "role": "Pendiri & CEO",
+        "bio": "Lebih dari 15 tahun di industri pangan, Sarah mendirikan PITAYA dengan visi merevolusi camilan sehat."
+      },
+      "2": {
+        "name": "David Chen",
+        "role": "Kepala Pengadaan",
+        "bio": "David berkeliling dunia mencari kacang dan biji terbaik, membangun relasi dengan petani yang sevisi."
+      },
+      "3": {
+        "name": "Anita Patel",
+        "role": "Kontrol Kualitas",
+        "bio": "Sebagai ahli pangan, Anita memastikan setiap produk memenuhi standar kualitas tinggi PITAYA."
+      },
+      "4": {
+        "name": "Michael Rodriguez",
+        "role": "Pengalaman Pelanggan",
+        "bio": "Michael memimpin tim layanan pelanggan, memastikan setiap interaksi dengan PITAYA selalu memuaskan."
+      }
+    },
+    "ctaTitle": "Bergabunglah dengan Keluarga PITAYA",
+    "ctaDesc": "Rasakan perbedaan kacang & biji premium. Mulai perjalanan camilan sehat Anda hari ini.",
+    "ctaShop": "Belanja Sekarang",
+    "ctaContact": "Hubungi Kami"
+  },
+  "Home": {
+    "title": "Kualitas Terbaik",
+    "subtitle": "Kacang & biji-bijian premium",
+    "description": "Temukan pilihan kacang-kacangan dan biji-bijian segar berkualitas tinggi. Sempurna untuk camilan sehat, masakan, atau hadiah untuk orang-orang terkasih.",
+    "shopNow": "Belanja Sekarang",
+    "learnMore": "Pelajari Lebih Lanjut",
+    "trustedBy": "Dipercaya lebih dari 500 pelanggan",
+    "copyright": "Hak cipta © 2025 Pitaya Store. Seluruh hak dilindungi undang-undang."
+  },
+  "CTASection": {
+    "title": "Siap Order?",
+    "desc": "Hubungi kami langsung lewat WhatsApp untuk pengalaman pemesanan cepat dan personal. Kami siap membantu Anda memilih produk terbaik!",
+    "chatWhatsapp": "Chat via WhatsApp",
+    "responseTime": "Biasanya kami membalas dalam hitungan menit selama jam kerja"
+  },
+  "MarketplaceSection": {
+    "title": "Belanja di Platform Favorit Anda",
+    "desc": "Temukan produk kami di berbagai platform e-commerce populer untuk pengalaman belanja yang mudah dan nyaman.",
+    "preferOfficial": "Lebih suka belanja di toko resmi kami?",
+    "visitOfficial": "Kunjungi Toko Resmi"
+  },
+  "FAQSection": {
+    "title": "Pertanyaan yang Sering Diajukan",
+    "desc": "Temukan jawaban atas pertanyaan umum tentang produk, pemesanan, dan pengiriman.",
+    "cta": "Masih ada pertanyaan? Kami siap membantu.",
+    "contactUs": "Hubungi Kami",
+    "faq": {
+      "1": {
+        "question": "Apa yang membuat kacang dan biji PITAYA istimewa?",
+        "answer": "Kacang dan biji PITAYA dipilih dari pemasok premium, diseleksi ketat untuk kualitas, dan diproses agar tetap segar serta bernutrisi maksimal. Semua produk kami bebas bahan tambahan dan pengawet."
+      },
+      "2": {
+        "question": "Bagaimana cara menyimpan kacang dan biji agar tetap segar?",
+        "answer": "Untuk kesegaran optimal, simpan kacang dan biji dalam wadah kedap udara di tempat sejuk dan kering, jauh dari sinar matahari langsung. Untuk penyimpanan lebih dari 3 bulan, sebaiknya simpan di lemari es atau freezer."
+      },
+      "3": {
+        "question": "Apakah produk kalian cocok untuk vegan dan vegetarian?",
+        "answer": "Ya, semua kacang dan biji kami 100% nabati dan cocok untuk vegan maupun vegetarian. Sumber protein dan nutrisi penting untuk pola makan berbasis tumbuhan."
+      },
+      "4": {
+        "question": "Apakah tersedia pengiriman internasional?",
+        "answer": "Saat ini kami melayani pengiriman ke seluruh Indonesia. Untuk pesanan internasional, silakan hubungi customer service kami di info@pitaya.com untuk diskusi opsi dan biaya pengiriman."
+      },
+      "5": {
+        "question": "Metode pembayaran apa saja yang diterima?",
+        "answer": "Kami menerima berbagai metode pembayaran termasuk kartu kredit/debit, transfer bank, dan e-wallet seperti GoPay, OVO, DANA, dan LinkAja demi kemudahan Anda."
+      },
+      "6": {
+        "question": "Berapa lama pesanan saya akan sampai?",
+        "answer": "Waktu pengiriman bervariasi tergantung lokasi Anda. Untuk Jakarta dan sekitarnya, biasanya 1-2 hari kerja. Wilayah lain di Indonesia 2-5 hari kerja."
+      }
+    }
+  },
+  "Footer": {
+    "desc": "Kacang dan biji-bijian berkualitas premium untuk gaya hidup lebih sehat.",
+    "quickLinks": "Tautan Cepat",
+    "home": "Beranda",
+    "products": "Produk",
+    "aboutUs": "Tentang Kami",
+    "contact": "Kontak",
+    "productsTitle": "Produk",
+    "nuts": "Kacang-kacangan",
+    "seeds": "Biji-bijian",
+    "driedFruits": "Buah Kering",
+    "giftPackages": "Paket Hadiah",
+    "contactUsTitle": "Kontak Kami",
+    "address": "Jakarta, Indonesia",
+    "phone": "+62 123 4567 890",
+    "email": "info@pitaya.com",
+    "privacyPolicy": "Kebijakan Privasi",
+    "termsOfService": "Syarat & Ketentuan",
+    "copyright": "© {year} PITAYA. Seluruh hak cipta."
+  }
+}

@@ -2,6 +2,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Heart, ShoppingBag } from "lucide-react"
+import { useTranslations } from 'next-intl';
 
 // Product data based on the price list
 const products = [
@@ -107,16 +108,16 @@ const products = [
 ]
 
 export default function ProductSection() {
+  const t = useTranslations('ProductSection');
   return (
     <section className="py-16 bg-gray-50" id="products">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Our Premium <span className="text-pink-500">Products</span>
+            {t('title')} <span className="text-pink-500">{t('titleHighlight')}</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Explore our selection of high-quality nuts and seeds, sourced from the best suppliers and carefully
-            processed to preserve their natural goodness.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -128,7 +129,7 @@ export default function ProductSection() {
             >
               {/* Badge */}
               {product.badge && (
-                <Badge className="absolute top-4 left-4 z-10 bg-pink-500 hover:bg-pink-600">{product.badge}</Badge>
+                <Badge className="absolute top-4 left-4 z-10 bg-pink-500 hover:bg-pink-600">{t(`product.${product.id}.badge`)}</Badge>
               )}
 
               {/* Wishlist button */}
@@ -150,9 +151,9 @@ export default function ProductSection() {
               {/* Content */}
               <div className="p-5">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-pink-500 transition-colors">
-                  {product.name}
+                  {t(`product.${product.id}.name`)}
                 </h3>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{t(`product.${product.id}.description`)}</p>
 
                 {/* Price selector */}
                 <div className="mb-4">
@@ -185,7 +186,7 @@ export default function ProductSection() {
                 {/* Button */}
                 <Button className="w-full bg-gradient-to-r from-pink-500 to-teal-500 hover:from-pink-600 hover:to-teal-600 text-white rounded-xl flex items-center justify-center gap-2">
                   <ShoppingBag className="h-4 w-4" />
-                  Add to Cart
+                  {t('addToCart')}
                 </Button>
               </div>
             </div>
@@ -194,7 +195,7 @@ export default function ProductSection() {
 
         <div className="mt-12 text-center">
           <Button variant="outline" className="border-teal-500 text-teal-500 hover:bg-teal-50 px-6 py-2 rounded-full">
-            View Full Price List
+            {t('viewFullPriceList')}
           </Button>
         </div>
       </div>

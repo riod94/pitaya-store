@@ -12,9 +12,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import { useTranslations } from 'next-intl';
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const t = useTranslations('Contact');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -30,11 +32,8 @@ export default function ContactPage() {
         <section className="bg-gradient-to-b from-pink-50 to-white py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Get in Touch</h1>
-              <p className="text-lg text-gray-600">
-                Have questions about our products or services? We're here to help. Reach out to us and we'll get back to
-                you as soon as possible.
-              </p>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('heroTitle')}</h1>
+              <p className="text-lg text-gray-600">{t('heroDesc')}</p>
             </div>
           </div>
         </section>
@@ -47,35 +46,35 @@ export default function ContactPage() {
                 <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <MapPin className="h-6 w-6 text-pink-500" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">Our Location</h3>
-                <p className="text-gray-600">Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta 10220, Indonesia</p>
+                <h3 className="text-lg font-semibold mb-2">{t('locationTitle')}</h3>
+                <p className="text-gray-600">{t('locationAddress')}</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow-sm text-center">
                 <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Phone className="h-6 w-6 text-teal-500" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">Phone Number</h3>
-                <p className="text-gray-600">+62 123 4567 890</p>
-                <p className="text-gray-600">+62 098 7654 321</p>
+                <h3 className="text-lg font-semibold mb-2">{t('phoneTitle')}</h3>
+                <p className="text-gray-600">{t('phone1')}</p>
+                <p className="text-gray-600">{t('phone2')}</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow-sm text-center">
                 <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Mail className="h-6 w-6 text-purple-500" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">Email Address</h3>
-                <p className="text-gray-600">info@pitaya.com</p>
-                <p className="text-gray-600">support@pitaya.com</p>
+                <h3 className="text-lg font-semibold mb-2">{t('emailTitle')}</h3>
+                <p className="text-gray-600">{t('email1')}</p>
+                <p className="text-gray-600">{t('email2')}</p>
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow-sm text-center">
                 <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Clock className="h-6 w-6 text-yellow-500" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">Business Hours</h3>
-                <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                <p className="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
+                <h3 className="text-lg font-semibold mb-2">{t('hoursTitle')}</h3>
+                <p className="text-gray-600">{t('hours1')}</p>
+                <p className="text-gray-600">{t('hours2')}</p>
               </div>
             </div>
           </div>
@@ -86,84 +85,82 @@ export default function ContactPage() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-3xl font-bold mb-6">Send Us a Message</h2>
+                <h2 className="text-3xl font-bold mb-6">{t('formTitle')}</h2>
                 {formSubmitted ? (
                   <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
                     <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">Thank You!</h3>
-                    <p className="text-gray-600 mb-4">
-                      Your message has been sent successfully. We'll get back to you as soon as possible.
-                    </p>
+                    <h3 className="text-xl font-semibold mb-2">{t('successTitle')}</h3>
+                    <p className="text-gray-600 mb-4">{t('successDesc')}</p>
                     <Button
                       onClick={() => setFormSubmitted(false)}
                       className="bg-gradient-to-r from-pink-500 to-teal-500 hover:from-pink-600 hover:to-teal-600 text-white"
                     >
-                      Send Another Message
+                      {t('successCta')}
                     </Button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm p-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div className="space-y-2">
-                        <Label htmlFor="first-name">First Name</Label>
-                        <Input id="first-name" placeholder="Enter your first name" required />
+                        <Label htmlFor="first-name">{t('firstName')}</Label>
+                        <Input id="first-name" placeholder={t('firstNamePlaceholder')} required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="last-name">Last Name</Label>
-                        <Input id="last-name" placeholder="Enter your last name" required />
+                        <Label htmlFor="last-name">{t('lastName')}</Label>
+                        <Input id="last-name" placeholder={t('lastNamePlaceholder')} required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="Enter your email" required />
+                        <Label htmlFor="email">{t('email')}</Label>
+                        <Input id="email" type="email" placeholder={t('emailPlaceholder')} required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="phone">Phone (Optional)</Label>
-                        <Input id="phone" placeholder="Enter your phone number" />
+                        <Label htmlFor="phone">{t('phone')}</Label>
+                        <Input id="phone" placeholder={t('phonePlaceholder')} />
                       </div>
                     </div>
 
                     <div className="space-y-2 mb-6">
-                      <Label htmlFor="subject">Subject</Label>
+                      <Label htmlFor="subject">{t('subject')}</Label>
                       <Select>
                         <SelectTrigger id="subject">
-                          <SelectValue placeholder="Select a subject" />
+                          <SelectValue placeholder={t('subjectPlaceholder')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="general">General Inquiry</SelectItem>
-                          <SelectItem value="product">Product Question</SelectItem>
-                          <SelectItem value="order">Order Status</SelectItem>
-                          <SelectItem value="wholesale">Wholesale Inquiry</SelectItem>
-                          <SelectItem value="feedback">Feedback</SelectItem>
+                          <SelectItem value="general">{t('subjectGeneral')}</SelectItem>
+                          <SelectItem value="product">{t('subjectProduct')}</SelectItem>
+                          <SelectItem value="order">{t('subjectOrder')}</SelectItem>
+                          <SelectItem value="wholesale">{t('subjectWholesale')}</SelectItem>
+                          <SelectItem value="feedback">{t('subjectFeedback')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div className="space-y-2 mb-6">
-                      <Label>How did you hear about us?</Label>
+                      <Label>{t('howHear')}</Label>
                       <RadioGroup defaultValue="social">
                         <div className="flex flex-wrap gap-4">
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="social" id="social" />
                             <Label htmlFor="social" className="font-normal">
-                              Social Media
+                              {t('hearSocial')}
                             </Label>
                           </div>
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="friend" id="friend" />
                             <Label htmlFor="friend" className="font-normal">
-                              Friend/Family
+                              {t('hearFriend')}
                             </Label>
                           </div>
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="search" id="search" />
                             <Label htmlFor="search" className="font-normal">
-                              Search Engine
+                              {t('hearSearch')}
                             </Label>
                           </div>
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="other" id="other" />
                             <Label htmlFor="other" className="font-normal">
-                              Other
+                              {t('hearOther')}
                             </Label>
                           </div>
                         </div>
@@ -171,10 +168,10 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-2 mb-6">
-                      <Label htmlFor="message">Message</Label>
+                      <Label htmlFor="message">{t('message')}</Label>
                       <Textarea
                         id="message"
-                        placeholder="Type your message here..."
+                        placeholder={t('messagePlaceholder')}
                         rows={5}
                         className="resize-none"
                         required
@@ -185,14 +182,14 @@ export default function ContactPage() {
                       type="submit"
                       className="bg-gradient-to-r from-pink-500 to-teal-500 hover:from-pink-600 hover:to-teal-600 text-white w-full"
                     >
-                      <Send className="h-4 w-4 mr-2" /> Send Message
+                      <Send className="h-4 w-4 mr-2" /> {t('sendMessage')}
                     </Button>
                   </form>
                 )}
               </div>
 
               <div>
-                <h2 className="text-3xl font-bold mb-6">Find Us</h2>
+                <h2 className="text-3xl font-bold mb-6">{t('findUsTitle')}</h2>
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                   <div className="aspect-video w-full">
                     <iframe
@@ -207,14 +204,11 @@ export default function ContactPage() {
                     ></iframe>
                   </div>
                   <div className="p-6">
-                    <h3 className="font-semibold mb-2">PITAYA Headquarters</h3>
-                    <p className="text-gray-600 mb-4">
-                      Our main office and retail store is located in the heart of Jakarta's business district. We
-                      welcome visitors during our business hours.
-                    </p>
+                    <h3 className="font-semibold mb-2">{t('hqTitle')}</h3>
+                    <p className="text-gray-600 mb-4">{t('hqDesc')}</p>
                     <div className="flex items-center text-pink-500">
                       <MapPin className="h-5 w-5 mr-2" />
-                      <span>Get Directions</span>
+                      <span>{t('getDirections')}</span>
                     </div>
                   </div>
                 </div>
@@ -228,50 +222,28 @@ export default function ContactPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
-                <p className="text-gray-600">
-                  Find answers to common questions about our products, ordering, and shipping.
-                </p>
+                <h2 className="text-3xl font-bold mb-4">{t('faqTitle')}</h2>
+                <p className="text-gray-600">{t('faqDesc')}</p>
               </div>
 
               <div className="space-y-6">
-                {[
-                  {
-                    question: "How long does shipping take?",
-                    answer:
-                      "Shipping times vary depending on your location. For Jakarta and surrounding areas, delivery typically takes 1-2 business days. For other regions in Indonesia, it may take 2-5 business days. International shipping is available and typically takes 7-14 business days.",
-                  },
-                  {
-                    question: "Are your products organic?",
-                    answer:
-                      "Many of our products are certified organic, which is clearly indicated on the product page. We're committed to offering organic options whenever possible, but some products may not have organic certification while still being grown with minimal intervention.",
-                  },
-                  {
-                    question: "Do you offer wholesale pricing?",
-                    answer:
-                      "Yes, we offer wholesale pricing for businesses. Please contact our wholesale department at wholesale@pitaya.com or fill out the contact form selecting 'Wholesale Inquiry' as the subject for more information.",
-                  },
-                  {
-                    question: "What is your return policy?",
-                    answer:
-                      "We stand behind the quality of our products. If you're not satisfied with your purchase for any reason, please contact us within 7 days of receiving your order. We'll arrange for a replacement or refund as appropriate.",
-                  },
-                ].map((faq, index) => (
-                  <div key={index} className="bg-white rounded-xl shadow-sm overflow-hidden">
-                    <div className="p-6">
-                      <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
-                      <p className="text-gray-600">{faq.answer}</p>
+                {[1,2,3,4].map((idx) => {
+                  const faq = t.raw(`faq.${idx}`);
+                  return (
+                    <div key={idx} className="bg-white rounded-xl shadow-sm overflow-hidden">
+                      <div className="p-6">
+                        <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                        <p className="text-gray-600">{faq.answer}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
 
               <div className="text-center mt-8">
-                <p className="text-gray-600 mb-4">
-                  Don't see your question here? Contact us and we'll be happy to help.
-                </p>
+                <p className="text-gray-600 mb-4">{t('faqMore')}</p>
                 <Button className="bg-gradient-to-r from-pink-500 to-teal-500 hover:from-pink-600 hover:to-teal-600 text-white">
-                  Contact Support
+                  {t('faqCta')}
                 </Button>
               </div>
             </div>

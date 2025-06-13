@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Check, ShoppingCart } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useTranslations } from 'next-intl';
 
 interface AddToCartProps {
   productId: number
@@ -24,6 +25,7 @@ export function AddToCart({
 }: AddToCartProps) {
   const [isAdded, setIsAdded] = useState(false)
   const router = useRouter()
+  const t = useTranslations('Product');
 
   const handleAddToCart = () => {
     // Here you would normally add the product to the cart
@@ -51,12 +53,12 @@ export function AddToCart({
       {isAdded ? (
         <>
           <Check className={`${showIcon ? "mr-2 h-4 w-4" : "h-4 w-4"}`} />
-          Added
+          {t('added')}
         </>
       ) : (
         <>
           {showIcon && <ShoppingCart className="mr-2 h-4 w-4" />}
-          Add to Cart
+          {t('addToCart')}
         </>
       )}
     </Button>
@@ -71,6 +73,7 @@ export function BuyNow({
   fullWidth = false,
 }: Omit<AddToCartProps, "showIcon">) {
   const router = useRouter()
+  const t = useTranslations('Product');
 
   const handleBuyNow = () => {
     router.push(`/checkout?productId=${productId}`)
@@ -83,7 +86,7 @@ export function BuyNow({
       className={`${className} ${fullWidth ? "w-full" : ""}`}
       onClick={handleBuyNow}
     >
-      Buy Now
+      {t('buyNow')}
     </Button>
   )
 }

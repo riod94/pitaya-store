@@ -17,6 +17,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ArrowLeft, CreditCard, ShoppingBag } from "lucide-react"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import { useTranslations } from 'next-intl';
 
 // Product data based on the price list (simplified version)
 const allProducts = [
@@ -56,6 +57,7 @@ const allProducts = [
 ]
 
 export default function CheckoutPage() {
+  const t = useTranslations('Checkout');
   const searchParams = useSearchParams()
   const productId = searchParams.get("productId")
   const [selectedProduct, setSelectedProduct] = useState<any>(null)
@@ -116,44 +118,42 @@ export default function CheckoutPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h1 className="text-2xl font-bold mb-2">Order Completed!</h1>
+                <h1 className="text-2xl font-bold mb-2">{t('successTitle')}</h1>
                 <p className="text-gray-600 mb-6">
-                  Thank you for your purchase. Your order has been received and is being processed.
+                  {t('successDesc')}
                 </p>
                 <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                  <p className="text-sm text-gray-500 mb-1">Order ID</p>
+                  <p className="text-sm text-gray-500">{t('orderId')}</p>
                   <p className="font-semibold text-lg">{orderId}</p>
                 </div>
                 <p className="text-gray-600 mb-6">
                   {checkoutType === "guest" ? (
                     <>
-                      You can check your order status using your order ID and email address.
-                      <br />
-                      <Link href="/track-order" className="text-pink-500 hover:text-pink-600">
-                        Track your order here
-                      </Link>
+                      {t('guestSuccessDesc')}<br />
+                       <Link href="/track-order" className="text-pink-500 hover:text-pink-600">
+                         {t('trackOrderCta')}
+                       </Link>
                     </>
                   ) : (
                     <>
-                      You can view your order details in your account dashboard.
-                      <br />
-                      <Link href="/account" className="text-pink-500 hover:text-pink-600">
-                        Go to your account
-                      </Link>
+                      {t('accountSuccessDesc')}<br />
+                       <Link href="/account" className="text-pink-500 hover:text-pink-600">
+                         {t('accountCta')}
+                       </Link>
                     </>
                   )}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/">
-                    <Button variant="outline">Continue Shopping</Button>
+                    <Button variant="outline">{t('continueShopping')}</Button>
                   </Link>
                   {checkoutType === "guest" ? (
                     <Link href="/track-order">
-                      <Button className="bg-pink-500 hover:bg-pink-600">Track Order</Button>
+                      <Button className="bg-pink-500 hover:bg-pink-600">{t('trackOrderCta')}</Button>
                     </Link>
                   ) : (
                     <Link href="/account">
-                      <Button className="bg-pink-500 hover:bg-pink-600">View Order</Button>
+                      <Button className="bg-pink-500 hover:bg-pink-600">{t('viewOrder')}</Button>
                     </Link>
                   )}
                 </div>
@@ -175,7 +175,7 @@ export default function CheckoutPage() {
             <Link href={productId ? `/products/${productId}` : "/cart"} className="text-gray-500 hover:text-pink-500">
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <h1 className="text-2xl font-bold">Checkout</h1>
+            <h1 className="text-2xl font-bold">{t('title')}</h1>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -184,7 +184,7 @@ export default function CheckoutPage() {
               <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-lg font-semibold">Checkout as</h2>
+                    <h2 className="text-lg font-semibold">{t('as')}</h2>
                   </div>
 
                   <Tabs
@@ -194,34 +194,31 @@ export default function CheckoutPage() {
                     className="w-full"
                   >
                     <TabsList className="grid w-full grid-cols-2 mb-6">
-                      <TabsTrigger value="account">Existing Customer</TabsTrigger>
-                      <TabsTrigger value="guest">Guest Checkout</TabsTrigger>
+                      <TabsTrigger value="account">{t('tabAccount')}</TabsTrigger>
+                      <TabsTrigger value="guest">{t('tabGuest')}</TabsTrigger>
                     </TabsList>
                     <TabsContent value="account">
                       <div className="space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="email">Email</Label>
-                          <Input id="email" type="email" placeholder="Enter your email" />
+                          <Label htmlFor="email">{t('email')}</Label>
+                          <Input id="email" type="email" placeholder={t('emailPlaceholder')} />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="password">Password</Label>
-                          <Input id="password" type="password" placeholder="Enter your password" />
+                          <Label htmlFor="password">{t('password')}</Label>
+                          <Input id="password" type="password" placeholder={t('passwordPlaceholder')} />
                         </div>
-                        <Button className="w-full bg-pink-500 hover:bg-pink-600">Sign In & Continue</Button>
+                        <Button className="w-full bg-pink-500 hover:bg-pink-600">{t('signInContinue')}</Button>
                         <p className="text-sm text-center text-gray-500">
-                          Don't have an account?{" "}
-                          <Link href="/login" className="text-pink-500 hover:text-pink-600">
-                            Create one
-                          </Link>
+                          {t('noAccount')} <Link href="/login" className="text-pink-500 hover:text-pink-600">{t('createAccount')}</Link>
                         </p>
                       </div>
                     </TabsContent>
                     <TabsContent value="guest">
                       <p className="text-gray-600 mb-4">
-                        Continue as a guest. You'll be able to track your order with your email and order ID.
+                        {t('guestDesc')}
                       </p>
                       <Button className="w-full bg-pink-500 hover:bg-pink-600" onClick={() => setStep(2)}>
-                        Continue as Guest
+                        {t('continueGuest')}
                       </Button>
                     </TabsContent>
                   </Tabs>
@@ -231,59 +228,59 @@ export default function CheckoutPage() {
               {step >= 2 && (
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
                   <div className="p-6">
-                    <h2 className="text-lg font-semibold mb-6">Shipping Information</h2>
+                    <h2 className="text-lg font-semibold mb-6">{t('shippingTitle')}</h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="firstName">First Name</Label>
-                          <Input id="firstName" placeholder="Enter your first name" required />
+                          <Label htmlFor="firstName">{t('firstName')}</Label>
+                          <Input id="firstName" placeholder={t('firstNamePlaceholder')} required />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="lastName">Last Name</Label>
-                          <Input id="lastName" placeholder="Enter your last name" required />
+                          <Label htmlFor="lastName">{t('lastName')}</Label>
+                          <Input id="lastName" placeholder={t('lastNamePlaceholder')} required />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="email">Email</Label>
-                          <Input id="email" type="email" placeholder="Enter your email" required />
+                          <Label htmlFor="email">{t('email')}</Label>
+                          <Input id="email" type="email" placeholder={t('emailPlaceholder')} required />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="phone">Phone</Label>
-                          <Input id="phone" placeholder="Enter your phone number" required />
+                          <Label htmlFor="phone">{t('phone')}</Label>
+                          <Input id="phone" placeholder={t('phonePlaceholder')} required />
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="address">Address</Label>
-                        <Input id="address" placeholder="Enter your street address" required />
+                        <Label htmlFor="address">{t('address')}</Label>
+                        <Input id="address" placeholder={t('addressPlaceholder')} required />
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="city">City</Label>
-                          <Input id="city" placeholder="Enter your city" required />
+                          <Label htmlFor="city">{t('city')}</Label>
+                          <Input id="city" placeholder={t('cityPlaceholder')} required />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="province">Province</Label>
-                          <Input id="province" placeholder="Enter your province" required />
+                          <Label htmlFor="province">{t('province')}</Label>
+                          <Input id="province" placeholder={t('provincePlaceholder')} required />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="postalCode">Postal Code</Label>
-                          <Input id="postalCode" placeholder="Enter your postal code" required />
+                          <Label htmlFor="postalCode">{t('postalCode')}</Label>
+                          <Input id="postalCode" placeholder={t('postalCodePlaceholder')} required />
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="notes">Order Notes (Optional)</Label>
+                        <Label htmlFor="notes">{t('notes')}</Label>
                         <Textarea
                           id="notes"
-                          placeholder="Add any special instructions or notes about your order"
+                          placeholder={t('notesPlaceholder')}
                           rows={3}
                         />
                       </div>
 
                       <div className="flex justify-end">
                         <Button type="submit" className="bg-pink-500 hover:bg-pink-600">
-                          Continue to Payment
+                          {t('continuePayment')}
                         </Button>
                       </div>
                     </form>
@@ -294,7 +291,7 @@ export default function CheckoutPage() {
               {step >= 3 && (
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
                   <div className="p-6">
-                    <h2 className="text-lg font-semibold mb-6">Payment Method</h2>
+                    <h2 className="text-lg font-semibold mb-6">{t('paymentTitle')}</h2>
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <RadioGroup defaultValue="bank-transfer">
                         <div className="space-y-4">
@@ -319,8 +316,8 @@ export default function CheckoutPage() {
                                   </svg>
                                 </div>
                                 <div>
-                                  <p className="font-medium">Bank Transfer</p>
-                                  <p className="text-sm text-gray-500">Pay via bank transfer</p>
+                                  <p className="font-medium">{t('bankTransfer')}</p>
+                                  <p className="text-sm text-gray-500">{t('bankTransferDesc')}</p>
                                 </div>
                               </Label>
                             </div>
@@ -347,8 +344,8 @@ export default function CheckoutPage() {
                                   </svg>
                                 </div>
                                 <div>
-                                  <p className="font-medium">E-Wallet</p>
-                                  <p className="text-sm text-gray-500">GoPay, OVO, DANA, LinkAja</p>
+                                  <p className="font-medium">{t('eWallet')}</p>
+                                  <p className="text-sm text-gray-500">{t('eWalletDesc')}</p>
                                 </div>
                               </Label>
                             </div>
@@ -362,8 +359,8 @@ export default function CheckoutPage() {
                                   <CreditCard className="h-6 w-6 text-purple-600" />
                                 </div>
                                 <div>
-                                  <p className="font-medium">Credit/Debit Card</p>
-                                  <p className="text-sm text-gray-500">Visa, Mastercard, JCB</p>
+                                  <p className="font-medium">{t('creditCard')}</p>
+                                  <p className="text-sm text-gray-500">{t('creditCardDesc')}</p>
                                 </div>
                               </Label>
                             </div>
@@ -374,20 +371,13 @@ export default function CheckoutPage() {
                       <div className="flex items-center space-x-2">
                         <Checkbox id="terms" required />
                         <Label htmlFor="terms" className="text-sm">
-                          I agree to the{" "}
-                          <Link href="/terms" className="text-pink-500 hover:text-pink-600">
-                            Terms of Service
-                          </Link>{" "}
-                          and{" "}
-                          <Link href="/privacy" className="text-pink-500 hover:text-pink-600">
-                            Privacy Policy
-                          </Link>
+                          {t('agree')} <Link href="/terms" className="text-pink-500 hover:text-pink-600">{t('terms')}</Link> {t('and')} <Link href="/privacy" className="text-pink-500 hover:text-pink-600">{t('privacy')}</Link>
                         </Label>
                       </div>
 
                       <div className="flex justify-end">
                         <Button type="submit" className="bg-pink-500 hover:bg-pink-600">
-                          Place Order
+                          {t('placeOrder')}
                         </Button>
                       </div>
                     </form>
@@ -400,7 +390,7 @@ export default function CheckoutPage() {
             <div className="lg:col-span-1">
               <div className="bg-white rounded-xl shadow-sm overflow-hidden sticky top-24">
                 <div className="p-6">
-                  <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+                  <h2 className="text-lg font-semibold mb-4">{t('summaryTitle')}</h2>
 
                   {selectedProduct ? (
                     <div className="mb-6">
@@ -507,7 +497,7 @@ export default function CheckoutPage() {
                     <div className="flex items-center justify-center py-8 mb-6">
                       <div className="text-center">
                         <ShoppingBag className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                        <p className="text-gray-500">No items in cart</p>
+                        <p className="text-gray-500">{t('noItems')}</p>
                       </div>
                     </div>
                   )}
@@ -516,20 +506,20 @@ export default function CheckoutPage() {
 
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Subtotal</span>
+                      <span className="text-gray-600">{t('subtotal')}</span>
                       <span className="font-medium">Rp {subtotal.toLocaleString("id-ID")}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Shipping</span>
+                      <span className="text-gray-600">{t('shipping')}</span>
                       <span className="font-medium">Rp {shipping.toLocaleString("id-ID")}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Discount</span>
+                      <span className="text-gray-600">{t('discount')}</span>
                       <span className="font-medium text-green-600">- Rp 0</span>
                     </div>
                     <Separator />
                     <div className="flex justify-between">
-                      <span className="font-semibold">Total</span>
+                      <span className="font-semibold">{t('total')}</span>
                       <span className="font-bold text-lg">Rp {total.toLocaleString("id-ID")}</span>
                     </div>
                   </div>

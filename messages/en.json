@@ -1,0 +1,378 @@
+{
+  "LocaleSwitcher": {
+    "en": "English",
+    "id": "Indonesia",
+    "label": "EN"
+  },
+  "Navbar": {
+    "cart": "Cart",
+    "signIn": "Sign In",
+    "myAccount": "My Account",
+    "home": "Home",
+    "products": "Products",
+    "about": "About",
+    "contact": "Contact",
+    "language": "Language"
+  },
+  "ProductSection": {
+    "title": "Our Premium",
+    "titleHighlight": "Products",
+    "subtitle": "Explore our selection of high-quality nuts and seeds, sourced from the best suppliers and carefully processed to preserve their natural goodness.",
+    "addToCart": "Add to Cart",
+    "viewFullPriceList": "View Full Price List",
+    "product": {
+      "1": {
+        "name": "Pistachio with Shell",
+        "description": "Premium quality pistachios with shells, perfect for snacking.",
+        "badge": "Best Seller"
+      },
+      "2": {
+        "name": "Mede Panggang",
+        "description": "Roasted cashews with a rich, buttery flavor."
+      },
+      "3": {
+        "name": "Almond Panggang",
+        "description": "Roasted almonds, a nutritious and delicious snack option.",
+        "badge": "Popular"
+      },
+      "4": {
+        "name": "Walnut Panggang",
+        "description": "Roasted walnuts with a distinctive rich flavor."
+      },
+      "5": {
+        "name": "Hazelnut",
+        "description": "Premium hazelnuts, perfect for snacking or baking.",
+        "badge": "New"
+      },
+      "6": {
+        "name": "Cranberry",
+        "description": "Dried cranberries, a sweet and tangy addition to your diet."
+      },
+      "7": {
+        "name": "Chia Seed",
+        "description": "Nutrient-rich chia seeds for a healthy lifestyle."
+      },
+      "8": {
+        "name": "Kismis Hitam",
+        "description": "Black raisins, naturally sweet and packed with nutrients."
+      }
+    }
+  },
+  "Product": {
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "added": "Added"
+  },
+  "about": "Tentang",
+  "contact": "Kontak",
+  "language": "Pilih Bahasa",
+  "Login": {
+    "logoAlt": "PITAYA Logo",
+    "welcome": "Welcome to PITAYA",
+    "desc": "Sign in to your account or create a new one",
+    "tabLogin": "Login",
+    "tabRegister": "Register",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "forgot": "Forgot password?",
+    "remember": "Remember me",
+    "signIn": "Sign In",
+    "orContinue": "Or continue with",
+    "google": "Google",
+    "facebook": "Facebook",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter your last name",
+    "registerEmail": "Email",
+    "registerEmailPlaceholder": "Enter your email",
+    "registerPassword": "Password",
+    "registerPasswordPlaceholder": "Create a password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "passwordHint": "Password must be at least 8 characters long with 1 uppercase, 1 lowercase and 1 number",
+    "agree": "I agree to the",
+    "terms": "Terms of Service",
+    "and": "and",
+    "privacy": "Privacy Policy",
+    "createAccount": "Create Account",
+    "orSignUp": "Or sign up with"
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "as": "Checkout as",
+    "tabAccount": "Existing Customer",
+    "tabGuest": "Guest Checkout",
+    "guestDesc": "Continue as a guest. You'll be able to track your order with your email and order ID.",
+    "continueGuest": "Continue as Guest",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "signInContinue": "Sign In & Continue",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create one",
+    "shippingTitle": "Shipping Information",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter your last name",
+    "phone": "Phone",
+    "phonePlaceholder": "Enter your phone number",
+    "address": "Address",
+    "addressPlaceholder": "Enter your street address",
+    "city": "City",
+    "cityPlaceholder": "Enter your city",
+    "province": "Province",
+    "provincePlaceholder": "Enter your province",
+    "postalCode": "Postal Code",
+    "postalCodePlaceholder": "Enter your postal code",
+    "notes": "Order Notes (Optional)",
+    "notesPlaceholder": "Add any special instructions or notes about your order",
+    "continuePayment": "Continue to Payment",
+    "paymentTitle": "Payment Method",
+    "bankTransfer": "Bank Transfer",
+    "bankTransferDesc": "Pay via bank transfer",
+    "eWallet": "E-Wallet",
+    "eWalletDesc": "GoPay, OVO, DANA, LinkAja",
+    "creditCard": "Credit/Debit Card",
+    "creditCardDesc": "Visa, Mastercard, JCB",
+    "agree": "I agree to the",
+    "terms": "Terms of Service",
+    "and": "and",
+    "privacy": "Privacy Policy",
+    "placeOrder": "Place Order",
+    "summaryTitle": "Order Summary",
+    "orderId": "Order ID",
+    "successTitle": "Order Completed!",
+    "successDesc": "Thank you for your purchase. Your order has been received and is being processed.",
+    "guestSuccessDesc": "You can check your order status using your order ID and email address.",
+    "trackOrderCta": "Track Order",
+    "accountSuccessDesc": "You can view your order details in your account dashboard.",
+    "accountCta": "Go to your account",
+    "viewOrder": "View Order",
+    "continueShopping": "Continue Shopping",
+    "noItems": "No items in cart",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "discount": "Discount",
+    "total": "Total"
+  },
+  "Cart": {
+    "title": "Your Shopping Cart",
+    "cartItems": "Cart Items ({count})",
+    "clearCart": "Clear Cart",
+    "size": "Size",
+    "promoTitle": "Have a Promo Code?",
+    "promoPlaceholder": "Enter promo code",
+    "apply": "Apply",
+    "summaryTitle": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "discount": "Discount",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "weAccept": "We Accept",
+    "emptyTitle": "Your cart is empty",
+    "emptyDesc": "Looks like you haven't added any products to your cart yet.",
+    "emptyCta": "Start Shopping"
+  },
+  "Contact": {
+    "heroTitle": "Get in Touch",
+    "heroDesc": "Have questions about our products or services? We're here to help. Reach out to us and we'll get back to you as soon as possible.",
+    "locationTitle": "Our Location",
+    "locationAddress": "Jl. Sudirman No. 123, Jakarta Pusat, DKI Jakarta 10220, Indonesia",
+    "phoneTitle": "Phone Number",
+    "phone1": "+62 123 4567 890",
+    "phone2": "+62 098 7654 321",
+    "emailTitle": "Email Address",
+    "email1": "info@pitaya.com",
+    "email2": "support@pitaya.com",
+    "hoursTitle": "Business Hours",
+    "hours1": "Monday - Friday: 9:00 AM - 6:00 PM",
+    "hours2": "Saturday: 10:00 AM - 4:00 PM",
+    "formTitle": "Send Us a Message",
+    "successTitle": "Thank You!",
+    "successDesc": "Your message has been sent successfully. We'll get back to you as soon as possible.",
+    "successCta": "Send Another Message",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter your last name",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "phone": "Phone (Optional)",
+    "phonePlaceholder": "Enter your phone number",
+    "subject": "Subject",
+    "subjectPlaceholder": "Select a subject",
+    "subjectGeneral": "General Inquiry",
+    "subjectProduct": "Product Question",
+    "subjectOrder": "Order Status",
+    "subjectWholesale": "Wholesale Inquiry",
+    "subjectFeedback": "Feedback",
+    "howHear": "How did you hear about us?",
+    "hearSocial": "Social Media",
+    "hearFriend": "Friend/Family",
+    "hearSearch": "Search Engine",
+    "hearOther": "Other",
+    "message": "Message",
+    "messagePlaceholder": "Type your message here...",
+    "sendMessage": "Send Message",
+    "findUsTitle": "Find Us",
+    "hqTitle": "PITAYA Headquarters",
+    "hqDesc": "Our main office and retail store is located in the heart of Jakarta's business district. We welcome visitors during our business hours.",
+    "getDirections": "Get Directions",
+    "faqTitle": "Frequently Asked Questions",
+    "faqDesc": "Find answers to common questions about our products, ordering, and shipping.",
+    "faq": {
+      "1": {
+        "question": "How long does shipping take?",
+        "answer": "Shipping times vary depending on your location. For Jakarta and surrounding areas, delivery typically takes 1-2 business days. For other regions in Indonesia, it may take 2-5 business days. International shipping is available and typically takes 7-14 business days."
+      },
+      "2": {
+        "question": "Are your products organic?",
+        "answer": "Many of our products are certified organic, which is clearly indicated on the product page. We're committed to offering organic options whenever possible, but some products may not have organic certification while still being grown with minimal intervention."
+      },
+      "3": {
+        "question": "Do you offer wholesale pricing?",
+        "answer": "Yes, we offer wholesale pricing for businesses. Please contact our wholesale department at wholesale@pitaya.com or fill out the contact form selecting 'Wholesale Inquiry' as the subject for more information."
+      },
+      "4": {
+        "question": "What is your return policy?",
+        "answer": "We stand behind the quality of our products. If you're not satisfied with your purchase for any reason, please contact us within 7 days of receiving your order. We'll arrange for a replacement or refund as appropriate."
+      }
+    },
+    "faqMore": "Don't see your question here? Contact us and we'll be happy to help.",
+    "faqCta": "Contact Support"
+  },
+  "About": {
+    "heroTitle": "Our Story",
+    "heroDesc": "Discover the journey behind PITAYA and our commitment to bringing you the finest quality nuts and seeds.",
+    "storyTitle": "From Farm to Table",
+    "story1": "PITAYA was founded in 2018 with a simple mission: to provide the highest quality nuts and seeds while supporting sustainable farming practices. What began as a small family business has grown into a trusted brand known for premium products and exceptional customer service.",
+    "story2": "We work directly with farmers across Indonesia and around the world to source the freshest, most flavorful nuts and seeds. By cutting out middlemen, we ensure that our farmers receive fair compensation for their hard work and that our customers receive the best possible products.",
+    "story3": "Every batch of nuts and seeds is carefully selected, processed with minimal intervention, and packaged to preserve freshness. We believe that nature provides the perfect flavors - our job is simply to deliver them to you in their purest form.",
+    "valuesTitle": "Our Values",
+    "valuesDesc": "At PITAYA, our values guide everything we do. From sourcing to delivery, we're committed to excellence, sustainability, and your satisfaction.",
+    "value1": {
+      "title": "Quality First",
+      "desc": "We never compromise on quality. Every product we offer meets our strict standards for taste, freshness, and nutritional value."
+    },
+    "value2": {
+      "title": "Sustainability",
+      "desc": "We're committed to environmentally responsible practices, from supporting sustainable farming to using eco-friendly packaging."
+    },
+    "value3": {
+      "title": "Community",
+      "desc": "We believe in building strong relationships with our farmers, customers, and communities through fair practices and giving back."
+    },
+    "teamTitle": "Meet Our Team",
+    "teamDesc": "The passionate people behind PITAYA who work tirelessly to bring you the best nuts and seeds.",
+    "team": {
+      "1": {
+        "name": "Sarah Johnson",
+        "role": "Founder & CEO",
+        "bio": "With over 15 years in the food industry, Sarah founded PITAYA with a vision to revolutionize healthy snacking."
+      },
+      "2": {
+        "name": "David Chen",
+        "role": "Head of Sourcing",
+        "bio": "David travels the world to find the best nuts and seeds, building relationships with farmers who share our values."
+      },
+      "3": {
+        "name": "Anita Patel",
+        "role": "Quality Control",
+        "bio": "A food scientist by training, Anita ensures that every product meets our strict quality standards."
+      },
+      "4": {
+        "name": "Michael Rodriguez",
+        "role": "Customer Experience",
+        "bio": "Michael leads our customer service team, ensuring that every interaction with PITAYA exceeds expectations."
+      }
+    },
+    "ctaTitle": "Join the PITAYA Family",
+    "ctaDesc": "Experience the difference of premium nuts and seeds. Start your journey to healthier snacking today.",
+    "ctaShop": "Shop Now",
+    "ctaContact": "Contact Us"
+  },
+  "Home": {
+    "title": "Premium Quality",
+    "subtitle": "Nuts & Seeds",
+    "description": "Discover our selection of fresh, high-quality nuts and seeds. Perfect for healthy snacking, cooking, or gifting to loved ones.",
+    "shopNow": "Shop Now",
+    "learnMore": "Learn More",
+    "trustedBy": "Trusted by 500+ customers",
+    "copyright": "Copyright © 2025 Pitaya Store. All rights reserved."
+  },
+  "CTASection": {
+    "title": "Ready to Order?",
+    "desc": "Contact us directly through WhatsApp for a quick and personalized ordering experience. We're ready to assist you with your selection!",
+    "chatWhatsapp": "Chat on WhatsApp",
+    "responseTime": "We typically respond within minutes during business hours"
+  },
+  "MarketplaceSection": {
+    "title": "Shop on Your Favorite Platform",
+    "desc": "Find our products on these popular e-commerce platforms for a convenient shopping experience.",
+    "preferOfficial": "Prefer to shop on our official store?",
+    "visitOfficial": "Visit Our Official Store"
+  },
+  "FAQSection": {
+    "title": "Frequently Asked Questions",
+    "desc": "Find answers to common questions about our products, ordering, and shipping.",
+    "cta": "Still have questions? We're here to help.",
+    "contactUs": "Contact Us",
+    "faq": {
+      "1": {
+        "question": "What makes PITAYA nuts and seeds special?",
+        "answer": "PITAYA nuts and seeds are sourced from premium suppliers, carefully selected for quality, and processed to maintain maximum freshness and nutritional value. We ensure all our products are free from additives and preservatives."
+      },
+      "2": {
+        "question": "How should I store my nuts and seeds?",
+        "answer": "For optimal freshness, store your nuts and seeds in an airtight container in a cool, dry place away from direct sunlight. For longer storage (over 3 months), we recommend keeping them in the refrigerator or freezer."
+      },
+      "3": {
+        "question": "Are your products suitable for vegans and vegetarians?",
+        "answer": "Yes, all our nuts and seeds are 100% plant-based and suitable for both vegans and vegetarians. They're a great source of protein and essential nutrients for plant-based diets."
+      },
+      "4": {
+        "question": "Do you offer international shipping?",
+        "answer": "Currently, we ship throughout Indonesia. For international orders, please contact our customer service team at info@pitaya.com to discuss shipping options and rates."
+      },
+      "5": {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept various payment methods including credit/debit cards, bank transfers, and e-wallets such as GoPay, OVO, DANA, and LinkAja for your convenience."
+      },
+      "6": {
+        "question": "How long will my order take to arrive?",
+        "answer": "Delivery times vary depending on your location. For Jakarta and surrounding areas, delivery typically takes 1-2 business days. For other regions in Indonesia, it may take 2-5 business days."
+      }
+    }
+  },
+  "Footer": {
+    "desc": "Premium quality nuts and seeds for a healthier lifestyle.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "products": "Products",
+    "aboutUs": "About Us",
+    "contact": "Contact",
+    "productsTitle": "Products",
+    "nuts": "Nuts",
+    "seeds": "Seeds",
+    "driedFruits": "Dried Fruits",
+    "giftPackages": "Gift Packages",
+    "contactUsTitle": "Contact Us",
+    "address": "Jakarta, Indonesia",
+    "phone": "+62 123 4567 890",
+    "email": "info@pitaya.com",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "copyright": "© {year} PITAYA. All rights reserved."
+  }
+}

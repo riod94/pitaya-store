@@ -1,13 +1,16 @@
 import Image from "next/image"
 
+import { useTranslations } from 'next-intl'
+
 export default function Footer() {
+  const t = useTranslations('Footer');
   return (
     <footer className="bg-gray-900 text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div>
             <Image src="/logo-pitaya-transparan.png" alt="PITAYA Logo" width={180} height={48} className="mb-4" />
-            <p className="text-gray-400 mb-4">Premium quality nuts and seeds for a healthier lifestyle.</p>
+            <p className="text-gray-400 mb-4">{t('desc')}</p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <svg
@@ -63,59 +66,59 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('quickLinks')}</h3>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Home
+                  {t('home')}
                 </a>
               </li>
               <li>
                 <a href="#products" className="text-gray-400 hover:text-white transition-colors">
-                  Products
+                  {t('products')}
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  About Us
+                  {t('aboutUs')}
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Contact
+                  {t('contact')}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Products</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('productsTitle')}</h3>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Nuts
+                  {t('nuts')}
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Seeds
+                  {t('seeds')}
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Dried Fruits
+                  {t('driedFruits')}
                 </a>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Gift Packages
+                  {t('giftPackages')}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('contactUsTitle')}</h3>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
@@ -133,7 +136,7 @@ export default function Footer() {
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
-                <span className="text-gray-400">Jakarta, Indonesia</span>
+                <span className="text-gray-400">{t('address')}</span>
               </li>
               <li className="flex items-start">
                 <svg
@@ -150,7 +153,7 @@ export default function Footer() {
                 >
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-                <span className="text-gray-400">+62 123 4567 890</span>
+                <span className="text-gray-400">{t('phone')}</span>
               </li>
               <li className="flex items-start">
                 <svg
@@ -168,7 +171,7 @@ export default function Footer() {
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
-                <span className="text-gray-400">info@pitaya.com</span>
+                <span className="text-gray-400">{t('email')}</span>
               </li>
             </ul>
           </div>
@@ -177,14 +180,14 @@ export default function Footer() {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-500 text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} PITAYA. All rights reserved.
+              {t('copyright', {year: new Date().getFullYear()})}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-500 hover:text-gray-400 text-sm">
-                Privacy Policy
+                {t('privacyPolicy')}
               </a>
               <a href="#" className="text-gray-500 hover:text-gray-400 text-sm">
-                Terms of Service
+                {t('termsOfService')}
               </a>
             </div>
           </div>
