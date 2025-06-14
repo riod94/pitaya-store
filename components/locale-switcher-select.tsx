@@ -32,7 +32,7 @@ export default function LocaleSwitcherSelect({ locale, items, label }: Props) {
 				<SelectTrigger
 					aria-label={label}
 					className={clsx(
-						"rounded-lg p-2 transition-colors hover:bg-slate-200 border-0",
+						"rounded-lg bg-transparent hover:bg-white hover:text-pink-500 py-0 px-2 transition-colors border-0",
 						isPending && "pointer-events-none opacity-60"
 					)}
 				>
@@ -40,11 +40,17 @@ export default function LocaleSwitcherSelect({ locale, items, label }: Props) {
 				</SelectTrigger>
 				<SelectContent
 					align="end"
-					className="min-w-[8rem] overflow-hidden rounded-lg bg-white py-1 shadow-lg"
+					className="min-w-[8rem] overflow-hidden rounded-lg py-1 shadow-lg "
 				>
 					{items.map((item) => (
-						<SelectItem key={item.value} value={item.value}>
-							<span className="text-slate-900">{item.label}</span>
+						<SelectItem
+							key={item.value}
+							value={item.value}
+							className={`transition-colors ${
+								item.value === locale ? "bg-white text-pink-500" : ""
+							}`}
+						>
+							<span>{item.label}</span>
 						</SelectItem>
 					))}
 				</SelectContent>
