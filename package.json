@@ -2,7 +2,7 @@
   "name": "pitaya-store",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "bun@1.2.10",
+  "packageManager": "bun@1.2.16",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
