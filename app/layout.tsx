@@ -2,10 +2,13 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale } from "next-intl/server";
-import Footer from "@/components/footer";
+import { getLocale, getMessages } from "next-intl/server";
+import { headers } from "next/headers";
 import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,15 +24,28 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }) {
 	const locale = await getLocale();
+	const messages = await getMessages();
+	const headersList = await headers();
+	const pathname = headersList.get("x-pathname") || "";
+	const isAdminRoute = pathname.startsWith("/admin");
 
 	return (
 		<html lang={locale} className="scroll-smooth">
 			<body className={inter.className}>
-				<NextIntlClientProvider>
-					<Navbar />
-					{children}
-					<Footer />
+				<NextIntlClientProvider locale={locale} messages={messages}>
+					{isAdminRoute ? (
+						children
+					) : (
+						<>
+							<SessionProvider>
+								<Navbar />
+							</SessionProvider>
+							{children}
+							<Footer />
+						</>
+					)}
 				</NextIntlClientProvider>
+				<Toaster richColors closeButton position="top-right" />
 			</body>
 		</html>
 	);

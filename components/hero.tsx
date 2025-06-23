@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 export default function Hero() {
 	const t = useTranslations("Home");
 	return (
-		<section className="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+		<section className="pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden">
 			<div className="container mx-auto px-4">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 					<div className="order-2 lg:order-1">

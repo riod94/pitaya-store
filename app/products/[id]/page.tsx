@@ -66,7 +66,7 @@ const product = {
 export default function ProductPage({ params }: { params: { id: string } }) {
   return (
     <>
-            <main className="min-h-screen pt-24 pb-16">
+            <main className="min-h-screen pt-20 pb-16">
         <div className="container mx-auto px-4">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 mb-8 text-sm">

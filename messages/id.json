@@ -1,7 +1,7 @@
 {
   "LocaleSwitcher": {
-    "en": "English",
-    "id": "Indonesia",
+    "en": "EN - English",
+    "id": "ID - Indonesia",
     "label": "ID"
   },
   "Navbar": {
@@ -66,9 +66,15 @@
   "about": "Tentang",
   "contact": "Kontak",
   "language": "Pilih Bahasa",
+  "languageDesc": "Pilih bahasa yang Anda inginkan",
+  "deleteAccount": "Hapus Akun",
+  "deleteAccountDesc": "Hapus permanen akun Anda dan semua data terkait",
+  "loading": "Memuat...",
+  "logout": "Keluar",
   "Login": {
+    "agreeTerms": "Dengan masuk atau membuat akun, Anda menyetujui <terms>Syarat Layanan</terms> dan <privacy>Kebijakan Privasi</privacy>.",
     "logoAlt": "Logo PITAYA",
-    "welcome": "Selamat datang di PITAYA",
+    "welcome": "Selamat datang di PITAYA Store",
     "desc": "Masuk ke akun Anda atau buat akun baru",
     "tabLogin": "Masuk",
     "tabRegister": "Daftar",
@@ -102,7 +108,8 @@
     "and": "dan",
     "privacy": "Kebijakan Privasi",
     "createAccount": "Buat Akun",
-    "orSignUp": "Atau daftar dengan"
+    "orSignUp": "Atau daftar dengan",
+    "Already have an account": "Sudah punya akun?"
   },
   "Checkout": {
     "title": "Checkout",
@@ -404,5 +411,19 @@
       "section6Title": "Perubahan Syarat",
       "section6Content": "PITAYA berhak mengubah syarat dan ketentuan ini kapan saja. Penggunaan situs yang berkelanjutan berarti Anda menyetujui versi terbaru dari syarat ini."
     }
-  }
+  },
+  "signInSuccess": "Login berhasil",
+  "Email and password are required": "Email dan password harus diisi",
+  "Email not found": "Email tidak terdaftar",
+  "Invalid user": "Email atau password salah",
+  "Incorrect password": "Password tidak sesuai",
+  "Full Name, email, and password is required": "Nama Lengkap, email, and kata sandi wajib diisi",
+  "Full Name min 3 characters": "Nama Lengkap minimal 3 karakter",
+  "Email is already register": "Email sudah terdaftar. Silahkan login",
+  "Failed to register user": "Gagal mendaftarkan pengguna. Silakan coba lagi nanti.",
+  "Something went wrong": "Terjadi kesalahan sistem. Silahkan coba lagi nanti.",
+  "Invalid Email": "Email tidak valid",
+  "Email is not allowed": "Email tidak diizinkan",
+  "Password minimum 8 characters and combination of letters and numbers": "Kata sandi minimal 8 karakter dan kombinasi huruf dan angka",
+  "Registration successful Redirecting to homepage": "Pendaftaran berhasil! Mengalihkan ke beranda..."
 }

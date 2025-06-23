@@ -89,7 +89,7 @@ export default function TrackOrderPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-24 pb-16 bg-gray-50">
+      <main className="min-h-screen pt-20 pb-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-2 mb-8">
             <Link href="/" className="text-gray-500 hover:text-pink-500">

@@ -1,7 +1,7 @@
 {
   "LocaleSwitcher": {
-    "en": "English",
-    "id": "Indonesia",
+    "en": "EN - English",
+    "id": "ID - Indonesia",
     "label": "EN"
   },
   "Navbar": {
@@ -66,12 +66,18 @@
   "about": "Tentang",
   "contact": "Kontak",
   "language": "Pilih Bahasa",
+  "languageDesc": "Select your preferred language",
+  "deleteAccount": "Delete Account",
+  "deleteAccountDesc": "Permanently delete your account and all data associated with it",
+  "loading": "Loading...",
+  "logout": "Logout",
   "Login": {
+    "agreeTerms": "By signing in or creating an account, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
     "logoAlt": "PITAYA Logo",
-    "welcome": "Welcome to PITAYA",
+    "welcome": "Welcome to PITAYA Store",
     "desc": "Sign in to your account or create a new one",
-    "tabLogin": "Login",
-    "tabRegister": "Register",
+    "tabLogin": "Sign In",
+    "tabRegister": "Sign Up",
     "email": "Email",
     "emailPlaceholder": "Enter your email",
     "password": "Password",
@@ -102,7 +108,8 @@
     "and": "and",
     "privacy": "Privacy Policy",
     "createAccount": "Create Account",
-    "orSignUp": "Or sign up with"
+    "orSignUp": "Or sign up with",
+    "Already have an account": "Already have an account?"
   },
   "Checkout": {
     "title": "Checkout",
@@ -404,5 +411,19 @@
       "section6Title": "Changes to Terms",
       "section6Content": "PITAYA reserves the right to modify these terms at any time. Continued use of our site means you accept the latest version of our terms."
     }
-  }
+  },
+  "signInSuccess": "Sign In Success",
+  "Email and password are required": "Email and password are required",
+  "Email not found": "Email not registered",
+  "Invalid user": "Invalid email or password",
+  "Incorrect password": "Incorrect password",
+  "Full Name, email, and password is required": "Full Name, email, and password is required",
+  "Full Name min 3 characters": "Full Name min 3 characters",
+  "Email is already register": "Email is already register. Please signin",
+  "Failed to register user": "Failed to register user. Please try again later",
+  "Something went wrong": "Something went wrong. Please try again later",
+  "Invalid Email": "Invalid Email",
+  "Email is not allowed": "Email is not allowed",
+  "Password minimum 8 characters and combination of letters and numbers": "Password minimum 8 characters and combination of letters and numbers",
+  "Registration successful Redirecting to homepage": "Registration successful! Redirecting to homepage..."
 }

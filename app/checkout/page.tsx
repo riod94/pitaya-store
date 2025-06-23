@@ -104,7 +104,7 @@ export default function CheckoutPage() {
 	if (orderComplete) {
 		return (
 			<>
-				<main className="min-h-screen pt-24 pb-16">
+				<main className="min-h-screen pt-20 pb-16">
 					<div className="container mx-auto px-4">
 						<div className="max-w-2xl mx-auto">
 							<div className="bg-white rounded-xl shadow-sm p-8 text-center">
@@ -189,7 +189,7 @@ export default function CheckoutPage() {
 
 	return (
 		<>
-			<main className="min-h-screen pt-24 pb-16 bg-gray-50">
+			<main className="min-h-screen pt-20 pb-16 bg-gray-50">
 				<div className="container mx-auto px-4">
 					<div className="flex items-center gap-2 mb-8">
 						<Link
