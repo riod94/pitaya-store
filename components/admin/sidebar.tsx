@@ -17,6 +17,8 @@ import {
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 
+import { BarChart2 } from "lucide-react";
+
 const menuItems = [
 	{
 		title: "Dashboard",
@@ -32,6 +34,11 @@ const menuItems = [
 		title: "Orders",
 		href: "/admin/orders",
 		icon: ShoppingCart,
+	},
+	{
+		title: "Analitik",
+		href: "/admin/analytics",
+		icon: BarChart2,
 	},
 	{
 		title: "Content",
