@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { db } from "@/drizzle/db/schema";
-import { products, categories, units } from "@/drizzle/db/schema";
-import { eq, desc, asc, like, and, sql } from "drizzle-orm";
+import { products, categories, units, productVariants } from '@/drizzle/db/schema';
+import { eq, desc, asc, like, and, sql, inArray } from "drizzle-orm";
 import { validateAdminAccess, createApiResponse, createErrorResponse } from "@/lib/auth-admin";
 
 // GET: Mengambil daftar products dengan pagination dan filter
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url);
-    
+
     // Parameters
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
@@ -28,22 +28,22 @@ export async function GET(request: NextRequest) {
 
     // Build where conditions
     const whereConditions = [];
-    
+
     if (search) {
       whereConditions.push(
         like(products.name, `%${search}%`)
       );
     }
-    
+
     if (status) {
       whereConditions.push(eq(products.status, status as any));
     }
-    
+
     if (categoryId) {
       whereConditions.push(eq(products.categoryId, parseInt(categoryId)));
     }
 
-    // Query products dengan join ke categories dan units
+    // Query products dengan join ke categories, units, dan variants
     const productsQuery = db
       .select({
         id: products.id,
@@ -115,8 +115,53 @@ export async function GET(request: NextRequest) {
 
     const totalPages = Math.ceil(totalCount / limit);
 
+    // Get variants for all products if there are any products
+    const productIds = result.map(p => p.id);
+    let productsWithVariants = result;
+    if (productIds.length > 0) {
+      const variants = await db
+        .select({
+          id: productVariants.id,
+          productId: productVariants.productId,
+          sku: productVariants.sku,
+          name: productVariants.name,
+          attributes: productVariants.attributes,
+          costPrice: productVariants.costPrice,
+          hpp: productVariants.hpp,
+          sellingPrice: productVariants.sellingPrice,
+          stockQuantity: productVariants.stockQuantity,
+          weight: productVariants.weight,
+          images: productVariants.images,
+          thumbnailUrl: productVariants.thumbnailUrl,
+          isActive: productVariants.isActive,
+          createdAt: productVariants.createdAt,
+          updatedAt: productVariants.updatedAt,
+        })
+        .from(productVariants)
+        .where(and(
+          inArray(productVariants.productId, productIds),
+          eq(productVariants.isActive, true)
+        ));
+
+      // Group variants by productId
+      const variantsByProduct = variants.reduce((acc, variant) => {
+        if (!acc[variant.productId]) {
+          acc[variant.productId] = [];
+        }
+        acc[variant.productId].push(variant);
+        return acc;
+      }, {} as Record<number, typeof variants>);
+
+      // Combine products with their variants
+      productsWithVariants = result.map(product => ({
+        ...product,
+        hasVariants: variantsByProduct[product.id] && variantsByProduct[product.id].length > 0,
+        variants: variantsByProduct[product.id] || []
+      }));
+    }
+
     return createApiResponse({
-      data: result,
+      data: productsWithVariants,
       pagination: {
         page,
         limit,

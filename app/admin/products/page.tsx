@@ -1,174 +1,659 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import DataTable from "@/components/ui/DataTable";
-import { Plus, MoreHorizontal } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import DataTableV2, {
+	DataTableColumn,
+	DataTableAction,
+} from "@/components/ui/DataTableV2";
+import {
+	Plus,
+	Eye,
+	Edit,
+	Trash2,
+	Package,
+	Star,
+	DollarSign,
+	UploadIcon,
+} from "lucide-react";
+import { Product, ProductVariant } from "@/types/product";
+import { useRouter } from "next/navigation";
 
-export default function ProductsPage() {
-	const [data, setData] = useState<any[]>([]);
+// Extended interfaces for this component
+interface ProductWithVariants extends Product {
+	variants?: ProductVariant[];
+	hasVariants: boolean;
+}
+
+interface ProductVariantWithDisplay extends ProductVariant {
+	price: number;
+	stock: number;
+}
+
+export default function ProductsPageV2() {
+	const router = useRouter();
+	const [data, setData] = useState<ProductWithVariants[]>([]);
 	const [loading, setLoading] = useState(false);
-	const [total, setTotal] = useState(0);
-	const [page, setPage] = useState(1);
-	const [pageSize, setPageSize] = useState<number | "All">(10);
-	const [search, setSearch] = useState("");
-	const [selected, setSelected] = useState<string[]>([]);
-	const [sortBy, setSortBy] = useState<string>("name");
-	const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-	const [statusFilter, setStatusFilter] = useState<string>("");
+	const [pagination, setPagination] = useState({
+		pageIndex: 0,
+		pageSize: 10,
+		total: 0,
+	});
+	const [globalFilter, setGlobalFilter] = useState("");
+	const [rowSelection, setRowSelection] = useState({});
+	const [showImport, setShowImport] = useState(false);
 
-	// Handler untuk View/Edit/Delete
-	const handleView = (row: any) => {
-		alert(`View produk: ${row.name}`);
-	};
-	const handleEdit = (row: any) => {
-		window.location.href = `/admin/products/${row.id}`;
-	};
-	const handleDelete = (row: any) => {
-		if (confirm(`Yakin hapus produk: ${row.name}?`)) {
-			// Implementasi delete API
-			alert("Produk dihapus (dummy)");
-		}
-	};
-
+	// Fetch data
 	useEffect(() => {
 		setLoading(true);
 		const params = new URLSearchParams({
-			page: String(page),
-			pageSize:
-				pageSize === "All" ? String(total || 1000) : String(pageSize),
-			search,
-			sortBy,
-			sortDir,
-			status: statusFilter,
+			page: String(pagination.pageIndex + 1),
+			pageSize: String(pagination.pageSize),
+			search: globalFilter,
 		});
+
 		fetch(`/api/admin/products?${params.toString()}`)
 			.then((res) => res.json())
 			.then((res) => {
-				setData(res.data || []);
-				setTotal(res.pagination.totalCount || 0);
+				// Mock data with variants for demo
+				const mockData: ProductWithVariants[] = (res.data || []).map(
+					(product: any) => ({
+						...product,
+						hasVariants: product.variants && product.variants.length > 0,
+						variants: product.variants || [],
+					})
+				);
+
+				setData(mockData);
+				setPagination((prev) => ({
+					...prev,
+					total: res.pagination?.totalCount || 0,
+				}));
 			})
 			.finally(() => setLoading(false));
-	}, [page, pageSize, search, sortBy, sortDir, statusFilter, total]);
+	}, [pagination.pageIndex, pagination.pageSize, globalFilter]);
 
-	const columns = [
+	// Actions
+	const actions: DataTableAction<Product>[] = [
 		{
-			label: "Image",
-			accessor: "images",
-			render: (row: any) => (
-				<div className="w-10 h-10 rounded-md overflow-hidden bg-gray-100">
-					<Image
-						src={row.images[0] || "/placeholder.svg"}
-						alt={row.name}
-						width={40}
-						height={40}
-						className="w-full h-full object-cover"
-					/>
+			label: "View",
+			icon: <Eye className="mr-2 h-4 w-4" />,
+			onClick: (product) => {
+				// Navigate to product detail page or show modal
+				router.push(`/admin/products/${product.id}`);
+			},
+			variant: "outline",
+		},
+		{
+			label: "Edit",
+			icon: <Edit className="mr-2 h-4 w-4" />,
+			onClick: (product) => {
+				router.push(`/admin/products/${product.id}/edit`);
+			},
+			variant: "default",
+		},
+		{
+			label: "Delete",
+			icon: <Trash2 className="mr-2 h-4 w-4" />,
+			onClick: async (product) => {
+				if (!confirm(`Are you sure you want to delete ${product.name}?`))
+					return;
+				const res = await fetch(`/api/admin/products/${product.id}`, {
+					method: "DELETE",
+				});
+				if (res.ok) {
+					alert(`Product ${product.name} deleted`);
+					setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+				} else {
+					alert("Failed to delete product");
+				}
+			},
+			variant: "destructive",
+			className: "text-red-600 hover:text-red-700",
+		},
+	];
+
+	// Columns definition
+	const columns: DataTableColumn<Product>[] = [
+		{
+			id: "image",
+			header: "Image",
+			cell: ({ row }) => {
+				const [imageError, setImageError] = useState(false);
+				const [imageLoading, setImageLoading] = useState(true);
+
+				const imageSrc =
+					imageError || !row.original.images?.[0]
+						? "/placeholder.svg"
+						: row.original.images[0];
+
+				const handleImageLoad = () => {
+					setImageLoading(false);
+				};
+
+				const handleImageError = () => {
+					setImageError(true);
+					setImageLoading(false);
+				};
+
+				return (
+					<div className="w-12 h-12 rounded-md overflow-hidden bg-gray-100 relative flex-shrink-0">
+						<Image
+							src={imageSrc}
+							alt={row.original.name}
+							width={48}
+							height={48}
+							className="w-full h-full object-cover"
+							onLoad={handleImageLoad}
+							onError={handleImageError}
+							style={{
+								opacity: imageLoading ? 0.5 : 1,
+								transition: "opacity 0.2s ease-in-out",
+							}}
+						/>
+						{imageLoading && (
+							<div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+								<div className="w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+							</div>
+						)}
+					</div>
+				);
+			},
+			size: 80,
+			enableSorting: false,
+			exportable: false,
+		},
+		{
+			accessorKey: "name",
+			header: "Product",
+			cell: ({ row }) => (
+				<div className="space-y-1">
+					<div className="font-medium">{row.original.name}</div>
+					{row.original.hasVariants && (
+						<Badge variant="secondary" className="text-xs">
+							<Package className="mr-1 h-3 w-3" />
+							{row.original.variants?.length || 0} variants
+						</Badge>
+					)}
 				</div>
 			),
-			width: "80px",
-		},
-		{
-			label: "Product",
-			accessor: "name",
-			className: "font-medium",
 			sortable: true,
+			filterType: "text",
 		},
 		{
-			label: "Category",
-			accessor: "category",
-			render: (row: any) => `${row.category?.name}`,
-			sortable: false,
-		},
-		{
-			label: "Price",
-			accessor: "costPrice",
-			render: (row: any) => `Rp ${row.costPrice}`,
+			accessorKey: "category.name",
+			header: "Category",
+			cell: ({ row }) => row.original.category?.name || "-",
 			sortable: true,
-		},
-		{
-			label: "HPP",
-			accessor: "hpp",
-			render: (row: any) => `Rp ${row.hpp}`,
-			sortable: true,
-		},
-		{
-			label: "Sell Price",
-			accessor: "sellingPrice",
-			render: (row: any) => `Rp ${row.sellingPrice}`,
-			sortable: true,
-		},
-		{ label: "Stock", accessor: "stockQuantity", sortable: true },
-		{
-			label: "Status",
-			accessor: "status",
+			filterType: "select",
 			filterOptions: [
-				{ label: "All", value: "" },
+				{ label: "Electronics", value: "electronics" },
+				{ label: "Clothing", value: "clothing" },
+				{ label: "Books", value: "books" },
+				{ label: "Home & Garden", value: "home-garden" },
+			],
+		},
+		{
+			accessorKey: "costPrice",
+			header: "Cost Price",
+			cell: ({ row }) => (
+				<div className="text-right">
+					Rp {row.original.costPrice.toLocaleString("id-ID")}
+				</div>
+			),
+			sortable: true,
+			filterType: "number",
+		},
+		{
+			accessorKey: "sellingPrice",
+			header: "Selling Price",
+			cell: ({ row }) => (
+				<div className="text-right font-medium">
+					Rp {row.original.sellingPrice.toLocaleString("id-ID")}
+				</div>
+			),
+			sortable: true,
+			filterType: "number",
+		},
+		{
+			accessorKey: "stockQuantity",
+			header: "Stock",
+			cell: ({ row }) => (
+				<div className="text-center">
+					<Badge
+						variant={
+							row.original.stockQuantity > 10 ? "default" : "destructive"
+						}
+					>
+						{row.original.stockQuantity}
+					</Badge>
+				</div>
+			),
+			sortable: true,
+			filterType: "number",
+		},
+		{
+			accessorKey: "status",
+			header: "Status",
+			cell: ({ row }) => {
+				const status = row.original.status;
+				const variants: Record<string, string> = {
+					active: "bg-green-100 text-green-800",
+					inactive: "bg-red-100 text-red-800",
+					discontinued: "bg-yellow-100 text-yellow-800",
+				};
+				return (
+					<Badge
+						className={variants[status] || "bg-gray-100 text-gray-800"}
+					>
+						{status.charAt(0).toUpperCase() + status.slice(1)}
+					</Badge>
+				);
+			},
+			sortable: true,
+			filterType: "select",
+			filterOptions: [
 				{ label: "Active", value: "active" },
 				{ label: "Inactive", value: "inactive" },
 				{ label: "Discontinued", value: "discontinued" },
 			],
-			onFilter: setStatusFilter,
-			render: (row: any) => (
-				<div
-					className={`px-2 py-1 rounded-full text-xs font-medium inline-block ${
-						row.status === "active"
-							? "bg-green-100 text-green-800"
-							: row.status === "discontinued"
-							? "bg-yellow-100 text-yellow-800"
-							: "bg-red-100 text-red-800"
-					}`}
-				>
-					{row.status}
-				</div>
-			),
 		},
 	];
 
+	// Render product variants sub-component
+	const renderSubComponent = ({ row }: { row: any }) => {
+		const product = row.original as ProductWithVariants;
+		if (!product.variants || product.variants.length === 0) {
+			return (
+				<div className="p-4 text-center text-muted-foreground">
+					No variants available
+				</div>
+			);
+		}
+
+		return (
+			<div className="p-4 space-y-3">
+				<h4 className="font-medium text-sm text-muted-foreground">
+					Product Variants ({product.variants.length})
+				</h4>
+				<div className="grid gap-3">
+					{product.variants.map((variant: ProductVariant) => {
+						const [variantImageError, setVariantImageError] =
+							useState(false);
+						const [variantImageLoading, setVariantImageLoading] =
+							useState(true);
+
+						const variantImageSrc =
+							variantImageError || !variant.images?.[0]
+								? "/placeholder.svg"
+								: variant.images[0];
+
+						const handleVariantImageLoad = () => {
+							setVariantImageLoading(false);
+						};
+
+						const handleVariantImageError = () => {
+							setVariantImageError(true);
+							setVariantImageLoading(false);
+						};
+
+						return (
+							<div
+								key={variant.id}
+								className="flex items-center justify-between p-3 bg-background rounded-lg border"
+							>
+								<div className="flex items-center space-x-3">
+									<div className="w-10 h-10 rounded-md overflow-hidden bg-gray-100 relative">
+										<Image
+											src={variantImageSrc}
+											alt={variant.name}
+											width={40}
+											height={40}
+											className="w-full h-full object-cover"
+											onLoad={handleVariantImageLoad}
+											onError={handleVariantImageError}
+											style={{
+												opacity: variantImageLoading ? 0.5 : 1,
+												transition: "opacity 0.2s ease-in-out",
+											}}
+										/>
+										{variantImageLoading && (
+											<div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+												<div className="w-3 h-3 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+											</div>
+										)}
+									</div>
+									<div className="space-y-1">
+										<div className="font-medium text-sm">
+											{variant.name}
+										</div>
+										<div className="text-xs text-muted-foreground">
+											SKU: {variant.sku}
+										</div>
+										<div className="flex gap-2">
+											{Object.entries(variant.attributes).map(
+												([key, value]) => (
+													<Badge
+														key={key}
+														variant="outline"
+														className="text-xs"
+													>
+														{key}: {value}
+													</Badge>
+												)
+											)}
+										</div>
+									</div>
+								</div>
+								<div className="text-right space-y-1">
+									<div className="font-medium">
+										Rp{" "}
+										{(variant.sellingPrice || 0).toLocaleString(
+											"id-ID"
+										)}
+									</div>
+									<div className="text-xs text-muted-foreground">
+										Stock: {variant.stockQuantity}
+									</div>
+								</div>
+							</div>
+						);
+					})}
+				</div>
+			</div>
+		);
+	};
+
+	// Export handler
+	const handleExport = (exportData: Product[]) => {
+		console.log("Exporting data:", exportData);
+		// Implement your export logic here
+	};
+
 	return (
 		<div className="space-y-6">
-			<div className="flex items-center justify-between">
+			{/* Header */}
+			<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 				<div>
 					<h1 className="text-2xl font-bold tracking-tight">Products</h1>
 					<p className="text-muted-foreground">
-						Manage your product inventory and pricing.
+						Advanced product management with TanStack Table
 					</p>
 				</div>
-				<Link href="/admin/products/new">
-					<Button className="bg-pink-500 hover:bg-pink-600">
-						<Plus className="mr-2 h-4 w-4" /> Add Product
-					</Button>
-				</Link>
 			</div>
+
+			{/* Import Modal */}
+			{showImport && (
+				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+					<div className="bg-white rounded-lg p-6 w-full max-w-lg">
+						<h2 className="text-xl font-semibold mb-4">
+							Import Products
+						</h2>
+						<input
+							type="file"
+							accept=".json,.csv"
+							onChange={async (e) => {
+								const file = e.target.files?.[0];
+								if (!file) return;
+								const text = await file.text();
+								let productsToImport = [];
+								try {
+									if (file.name.endsWith(".json")) {
+										productsToImport = JSON.parse(text);
+									} else if (file.name.endsWith(".csv")) {
+										// Simple CSV parse (assuming header row)
+										const lines = text.split("\n").filter(Boolean);
+										const headers = lines[0]
+											.split(",")
+											.map((h) => h.trim());
+										productsToImport = lines.slice(1).map((line) => {
+											const values = line
+												.split(",")
+												.map((v) => v.trim());
+											const obj: any = {};
+											headers.forEach((header, i) => {
+												obj[header] = values[i];
+											});
+											return obj;
+										});
+									} else {
+										alert("Unsupported file format");
+										return;
+									}
+								} catch (err) {
+									alert("Failed to parse file");
+									return;
+								}
+
+								// Call import API
+								const res = await fetch("/api/admin/products/bulk", {
+									method: "PUT",
+									headers: { "Content-Type": "application/json" },
+									body: JSON.stringify({ products: productsToImport }),
+								});
+								if (res.ok) {
+									alert("Products imported successfully");
+									setShowImport(false);
+									setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+								} else {
+									alert("Failed to import products");
+								}
+							}}
+						/>
+						<div className="mt-4 flex justify-end space-x-2">
+							<Button
+								variant="outline"
+								onClick={() => setShowImport(false)}
+							>
+								Cancel
+							</Button>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{/* Stats Cards */}
+			<div className="grid gap-4 md:grid-cols-4">
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+						<CardTitle className="text-sm font-medium">
+							Total Products
+						</CardTitle>
+						<Package className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						<div className="text-2xl font-bold">{pagination.total}</div>
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+						<CardTitle className="text-sm font-medium">
+							With Variants
+						</CardTitle>
+						<Star className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						<div className="text-2xl font-bold">
+							{data.filter((p) => p.hasVariants).length}
+						</div>
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+						<CardTitle className="text-sm font-medium">
+							Active Products
+						</CardTitle>
+						<Package className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						<div className="text-2xl font-bold">
+							{data.filter((p) => p.status === "active").length}
+						</div>
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+						<CardTitle className="text-sm font-medium">
+							Total Value
+						</CardTitle>
+						<DollarSign className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						<div className="text-2xl font-bold">
+							Rp{" "}
+							{data
+								.reduce(
+									(sum, p) => sum + p.sellingPrice * p.stockQuantity,
+									0
+								)
+								.toLocaleString("id-ID")}
+						</div>
+					</CardContent>
+				</Card>
+			</div>
+
+			<div className="flex items-center gap-2 justify-end">
+				{Object.keys(rowSelection).length > 0 && (
+					<>
+						<Button
+							variant="destructive"
+							onClick={async () => {
+								if (
+									!confirm(
+										`Delete ${
+											Object.keys(rowSelection).length
+										} selected products?`
+									)
+								)
+									return;
+								const res = await fetch("/api/admin/products/bulk", {
+									method: "POST",
+									headers: { "Content-Type": "application/json" },
+									body: JSON.stringify({
+										action: "delete",
+										productIds: Object.keys(rowSelection).map((id) =>
+											parseInt(id)
+										),
+									}),
+								});
+								if (res.ok) {
+									alert("Deleted selected products");
+									setRowSelection({});
+									setPagination((prev) => ({
+										...prev,
+										pageIndex: 0,
+									}));
+								} else {
+									alert("Failed to delete products");
+								}
+							}}
+						>
+							Delete Selected ({Object.keys(rowSelection).length})
+						</Button>
+						<Button
+							onClick={async () => {
+								const stock = prompt(
+									"Enter new stock quantity for selected products:"
+								);
+								if (stock === null) return;
+								const stockNum = parseInt(stock);
+								if (isNaN(stockNum)) {
+									alert("Invalid number");
+									return;
+								}
+								const res = await fetch("/api/admin/products/bulk", {
+									method: "POST",
+									headers: { "Content-Type": "application/json" },
+									body: JSON.stringify({
+										action: "updateStock",
+										productIds: Object.keys(rowSelection).map((id) =>
+											parseInt(id)
+										),
+										stockUpdate: stockNum,
+									}),
+								});
+								if (res.ok) {
+									alert("Updated stock for selected products");
+									setRowSelection({});
+									setPagination((prev) => ({
+										...prev,
+										pageIndex: 0,
+									}));
+								} else {
+									alert("Failed to update stock");
+								}
+							}}
+						>
+							Edit Stock Selected ({Object.keys(rowSelection).length})
+						</Button>
+					</>
+				)}
+				<Button
+					className="bg-pink-500 hover:bg-pink-600"
+					onClick={() => (window.location.href = "/admin/products/new")}
+				>
+					<Plus className="mr-2 h-4 w-4" />
+					Add Product
+				</Button>
+				<Button variant="outline" onClick={() => setShowImport(true)}>
+					<UploadIcon className="mr-2 h-4 w-4" />
+					Import Products
+				</Button>
+			</div>
+
+			{/* DataTable */}
 			<Card>
-				<CardContent>
-					<DataTable
-						columns={columns}
+				<CardContent className="p-6">
+					<DataTableV2
 						data={data}
+						columns={columns}
 						loading={loading}
+						// Search & Filter
+						searchable
 						searchPlaceholder="Search products..."
-						onSearch={setSearch}
-						filterable
-						onSort={(by, dir) => {
-							setSortBy(by);
-							setSortDir(dir);
-						}}
+						globalFilter={globalFilter}
+						onGlobalFilterChange={setGlobalFilter}
+						// Pagination
 						pagination={{
-							total,
-							page,
-							pageSize: pageSize === "All" ? total : pageSize,
-							onChange: setPage,
+							pageIndex: pagination.pageIndex,
+							pageSize: pagination.pageSize,
+							total: pagination.total,
+							onPaginationChange: (newPagination) => {
+								setPagination((prev) => ({
+									...prev,
+									pageIndex: newPagination.pageIndex,
+									pageSize: newPagination.pageSize,
+								}));
+							},
 						}}
-						checkbox
-						selectedRows={selected}
-						onSelectRows={setSelected}
-						rowKey={(row: any) => row.id}
-						onView={handleView}
-						onEdit={handleEdit}
-						onDelete={handleDelete}
+						// Selection
+						enableRowSelection
+						rowSelection={rowSelection}
+						onRowSelectionChange={setRowSelection}
+						getRowId={(row) => String(row.id)}
+						// Expansion for variants
+						enableExpanding
+						getSubRows={(row) => (row.hasVariants ? [] : undefined)} // Enable expansion for products with variants
+						renderSubComponent={renderSubComponent}
+						// Actions
+						actions={actions}
+						// Export
+						enableExport
+						exportFilename="products"
+						onExport={handleExport}
+						// Column Management
+						enableColumnVisibility
+						enableColumnResizing
+						// Styling
+						size="md"
+						className="w-full [&_td:first-child]:p-0 [&_th:first-child]:p-0 [&_td:first-child]:min-w-0 [&_th:first-child]:min-w-0"
+						// Server-side operations
+						manualPagination
+						manualSorting={false}
+						manualFiltering={false}
 					/>
 				</CardContent>
 			</Card>
