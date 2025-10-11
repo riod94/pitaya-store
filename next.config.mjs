@@ -7,6 +7,16 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'ik.imagekit.io',
+                port: '',
+                pathname: '/**',
+            },
+        ],
+    },
 }
 
 export default withNextIntl(nextConfig);

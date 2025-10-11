@@ -1,28 +1,325 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+"use client"
+import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import { Save, Plus } from "lucide-react";
+import { GeneralTab } from "./components/GeneralTab";
+import { AppearanceTab } from "./components/AppearanceTab";
+import { NotificationsTab } from "./components/NotificationsTab";
+import { ShippingTab } from "./components/ShippingTab";
+import { PaymentTab } from "./components/PaymentTab";
+
+class SettingsService {
+	async getSettings() {
+		const res = await fetch("/api/admin/settings", { cache: "no-store" });
+		if (!res.ok) throw new Error("Gagal memuat settings");
+		const json = await res.json();
+		const data = json?.data ?? json; // createApiResponse wraps in {data}
+
+		// Map API shape -> UI state shape yang ada sekarang
+		const store = data.storeSettings || {};
+		const site = data.siteSettings || {};
+		const providers = data.shippingProviders || [];
+		const zones = data.shippingZones || [];
+		const payments = data.paymentMethods || [];
+
+		// Simpan raw data untuk update
+		const rawProviders = providers.map((p: any) => ({ id: p.id, name: p.name, code: p.code, isActive: !!p.isActive }));
+		const rawPayments = payments.map((pm: any) => ({ id: pm.id, name: pm.name, code: pm.code, type: pm.type, isActive: !!pm.isActive }));
+
+		const mapProv = (name: string) => {
+			const n = name.toLowerCase();
+			if (n.includes("j&t")) return "jt";
+			if (n.includes("jnt")) return "jt";
+			if (n.includes("sicepat")) return "sicepat";
+			if (n.includes("pos")) return "pos";
+			if (n.includes("jne")) return "jne";
+			if (n.includes("gosend")) return "gosend";
+			return undefined;
+		};
+
+		const shippingMethods: Record<string, boolean> = {};
+		providers.forEach((p: any) => {
+			const key = mapProv(p.name || p.code || "");
+			if (key) shippingMethods[key] = !!p.isActive;
+		});
+
+		const paymentMethods: Record<string, boolean> = {};
+		payments.forEach((pm: any) => {
+			const t = (pm.type || pm.code || pm.name || "").toString().toLowerCase();
+			if (t.includes("bank") || t.includes("transfer")) paymentMethods.bankTransfer = !!pm.isActive;
+			else if (t.includes("wallet") || t.includes("ewallet") || t.includes("gopay") || t.includes("ovo") || t.includes("dana")) paymentMethods.eWallet = !!pm.isActive;
+			else if (t.includes("cod")) paymentMethods.cod = !!pm.isActive;
+			else if (t.includes("card") || t.includes("credit") || t.includes("debit")) paymentMethods.card = !!pm.isActive;
+			else if (t.includes("qris")) paymentMethods.qris = !!pm.isActive;
+		});
+
+		return {
+			general: {
+				storeName: store.store_name ?? "",
+				emailAddress: store.store_email ?? "",
+				phoneNumber: store.store_phone ?? "",
+				currency: store.store_currency ?? "idr",
+				addressLine1: store.store_address_line1 ?? "",
+				addressLine2: store.store_address_line2 ?? "",
+				city: store.store_city ?? "",
+				province: store.store_province ?? "",
+				postalCode: store.store_postal_code ?? "",
+				country: store.store_country ?? "id",
+				weekdayHours: store.store_weekday_hours ?? "",
+				weekendHours: store.store_weekend_hours ?? "",
+				closedHolidays: !!store.store_closed_holidays,
+			},
+			appearance: {
+				theme: site.site_theme ?? "default",
+				logo: site.site_logo ?? "/logo-pitaya-transparan.png",
+				homepageLayout: {
+					showHero: !!site.site_show_hero,
+					showFeatured: !!site.site_show_featured,
+					showCategories: !!site.site_show_categories,
+					showTestimonials: !!site.site_show_testimonials,
+				},
+			},
+			notifications: {
+				emailNotifications: {
+					newOrder: !!store.notifications_new_order,
+					orderStatus: !!store.notifications_order_status,
+					lowStock: !!store.notifications_low_stock,
+					customerMessages: !!store.notifications_customer_messages,
+				},
+				additionalRecipients: store.notifications_additional_emails ?? "",
+			},
+			shipping: {
+				shippingMethods,
+				freeShipping: {
+					enabled: !!store.shipping_enable_free_shipping,
+					threshold: Number(store.free_shipping_min ?? 0) || 0,
+				},
+				shippingZones: zones.map((z: any) => ({ id: z.id, name: z.name, areas: z.area || [] })),
+			},
+			payment: {
+				paymentMethods,
+				bankAccountDetails: {
+					bankName: store.bank_name ?? "",
+					accountNumber: store.bank_account_number ?? "",
+					accountHolderName: store.bank_account_name ?? "",
+					branch: store.bank_branch ?? "",
+				},
+			},
+			// Add paymentMethods array at root level for PaymentTab
+			paymentMethods: rawPayments,
+			_raw: {
+				shippingProviders: rawProviders,
+				paymentMethods: rawPayments,
+			},
+		} as any;
+	}
+
+	async saveSettings(currentState: any) {
+		// Kirim payload lengkap termasuk shippingProviders dan paymentMethods
+		const payload = {
+			storeSettings: {
+				store_name: currentState?.general?.storeName,
+				store_email: currentState?.general?.emailAddress,
+				store_phone: currentState?.general?.phoneNumber,
+				store_currency: currentState?.general?.currency,
+				store_address_line1: currentState?.general?.addressLine1,
+				store_address_line2: currentState?.general?.addressLine2,
+				store_city: currentState?.general?.city,
+				store_province: currentState?.general?.province,
+				store_postal_code: currentState?.general?.postalCode,
+				store_country: currentState?.general?.country,
+				store_weekday_hours: currentState?.general?.weekdayHours,
+				store_weekend_hours: currentState?.general?.weekendHours,
+				store_closed_holidays: !!currentState?.general?.closedHolidays,
+				shipping_enable_free_shipping: !!currentState?.shipping?.freeShipping?.enabled,
+				free_shipping_min: currentState?.shipping?.freeShipping?.threshold,
+				notifications_new_order: !!currentState?.notifications?.emailNotifications?.newOrder,
+				notifications_order_status: !!currentState?.notifications?.emailNotifications?.orderStatus,
+				notifications_low_stock: !!currentState?.notifications?.emailNotifications?.lowStock,
+				notifications_customer_messages: !!currentState?.notifications?.emailNotifications?.customerMessages,
+				notifications_additional_emails: currentState?.notifications?.additionalRecipients,
+				bank_name: currentState?.payment?.bankAccountDetails?.bankName,
+				bank_account_number: currentState?.payment?.bankAccountDetails?.accountNumber,
+				bank_account_name: currentState?.payment?.bankAccountDetails?.accountHolderName,
+				bank_branch: currentState?.payment?.bankAccountDetails?.branch,
+			},
+			siteSettings: {
+				site_theme: currentState?.appearance?.theme,
+				site_show_hero: !!currentState?.appearance?.homepageLayout?.showHero,
+				site_show_featured: !!currentState?.appearance?.homepageLayout?.showFeatured,
+				site_show_categories: !!currentState?.appearance?.homepageLayout?.showCategories,
+				site_show_testimonials: !!currentState?.appearance?.homepageLayout?.showTestimonials,
+			},
+			shippingProviders: (currentState?._raw?.shippingProviders || []).map((sp: any) => ({
+				id: sp.id,
+				isActive: sp.isActive
+			})),
+			paymentMethods: (currentState?._raw?.paymentMethods || []).map((pm: any) => ({
+				id: pm.id,
+				isActive: pm.isActive
+			})),
+		} as any;
+
+		const res = await fetch("/api/admin/settings", {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(payload),
+		});
+
+		if (!res.ok) {
+			const errData = await res.json().catch(() => ({}));
+			throw new Error(errData?.error || "Gagal menyimpan settings");
+		}
+	}
+}
 
 export default function SettingsPage() {
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const tabFromUrl = searchParams.get("tab") || "general";
+	
+	const settingsService = new SettingsService();
+	const [settings, setSettings] = useState<any>({});
+	const [loading, setLoading] = useState(false);
+	const [activeTab, setActiveTab] = useState(tabFromUrl);
+
+	const loadSettings = async () => {
+		try {
+			console.log('📥 Loading settings from API...');
+			const apiData = await settingsService.getSettings();
+			console.log('📦 Raw API data:', apiData);
+			
+			// Transform API data to match component expectations
+			const transformedData = await settingsService.getSettings();
+			console.log('🔄 Transformed data:', transformedData);
+			console.log('💳 Payment methods array:', transformedData.paymentMethods);
+			
+			setSettings(transformedData);
+		} catch (error) {
+			console.error('❌ Error loading settings:', error);
+			toast.error("Gagal memuat settings");
+		}
+	};
+
+	useEffect(() => {
+		loadSettings();
+	}, []);
+
+	// Sync tab with URL
+	useEffect(() => {
+		setActiveTab(tabFromUrl);
+	}, [tabFromUrl]);
+
+	const handleTabChange = (value: string) => {
+		setActiveTab(value);
+		router.push(`/admin/settings?tab=${value}`, { scroll: false });
+	};
+
+	const handleZonesChange = () => {
+		// Reload settings to get updated shipping zones
+		loadSettings();
+	};
+
+	const handleSaveChanges = async () => {
+		setLoading(true);
+		try {
+			await settingsService.saveSettings(settings);
+			toast.success("Settings berhasil disimpan", {
+				description: "Perubahan telah tersimpan ke database",
+			});
+		} catch (e: any) {
+			console.error(e);
+			toast.error("Gagal menyimpan settings", {
+				description: e?.message || "Terjadi kesalahan saat menyimpan settings",
+			});
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const updateField = (section: string, field: string, value: any) => {
+		setSettings((prev: any) => ({
+			...prev,
+			[section]: {
+				...prev[section],
+				[field]: value,
+			},
+		}));
+	};
+
+	const updateNestedField = (section: string, subsection: string, field: string, value: any) => {
+		setSettings((prev: any) => ({
+			...prev,
+			[section]: {
+				...prev[section],
+				[subsection]: {
+					...prev[section]?.[subsection],
+					[field]: value,
+				},
+			},
+		}));
+	};
+
+	const toggleShippingProvider = (key: string) => {
+		setSettings((prev: any) => {
+			const current = prev?.shipping?.shippingMethods?.[key] ?? false;
+			const newVal = !current;
+			// Update UI state
+			const updated = {
+				...prev,
+				shipping: {
+					...prev.shipping,
+					shippingMethods: {
+						...prev.shipping?.shippingMethods,
+						[key]: newVal,
+					},
+				},
+			};
+			// Update raw providers
+			const rawProviders = (prev._raw?.shippingProviders || []).map((p: any) => {
+				const pKey = (p.name || p.code || "").toLowerCase();
+				if (pKey.includes(key) || pKey.includes(key.replace("jt", "j&t"))) {
+					return { ...p, isActive: newVal };
+				}
+				return p;
+			});
+			updated._raw = { ...prev._raw, shippingProviders: rawProviders };
+			return updated;
+		});
+	};
+
+	const togglePaymentMethod = (code: string) => {
+		console.log('🔄 Toggle payment method:', code);
+		setSettings((prev: any) => {
+			// paymentMethods is an array, find and toggle by code
+			const paymentMethods = prev.paymentMethods || [];
+			console.log('📋 Current payment methods:', paymentMethods);
+			
+			const updatedPaymentMethods = paymentMethods.map((pm: any) => {
+				if (pm.code === code) {
+					console.log(`✅ Toggling ${pm.name} from ${pm.isActive} to ${!pm.isActive}`);
+					return { ...pm, isActive: !pm.isActive };
+				}
+				return pm;
+			});
+			
+			console.log('📋 Updated payment methods:', updatedPaymentMethods);
+			
+			const newState = {
+				...prev,
+				paymentMethods: updatedPaymentMethods,
+				_raw: {
+					...prev._raw,
+					paymentMethods: updatedPaymentMethods
+				}
+			};
+			
+			console.log('💾 New state:', newState);
+			return newState;
+		});
+	};
+
 	return (
 		<div className="space-y-6">
 			<div>
@@ -32,7 +329,7 @@ export default function SettingsPage() {
 				</p>
 			</div>
 
-			<Tabs defaultValue="general" className="space-y-6">
+			<Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
 				<TabsList>
 					<TabsTrigger value="general">General</TabsTrigger>
 					<TabsTrigger value="appearance">Appearance</TabsTrigger>
@@ -42,655 +339,52 @@ export default function SettingsPage() {
 				</TabsList>
 
 				<TabsContent value="general">
-					<Card>
-						<CardHeader>
-							<CardTitle>General Settings</CardTitle>
-							<CardDescription>
-								Manage your store information and contact details.
-							</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-6">
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">
-									Store Information
-								</h3>
-								<div className="grid gap-4 md:grid-cols-2">
-									<div className="space-y-2">
-										<Label htmlFor="store-name">Store Name</Label>
-										<Input id="store-name" defaultValue="PITAYA" />
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="store-email">Email Address</Label>
-										<Input
-											id="store-email"
-											type="email"
-											defaultValue="info@pitaya.com"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="store-phone">Phone Number</Label>
-										<Input
-											id="store-phone"
-											defaultValue="+62 123 4567 890"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="store-currency">Currency</Label>
-										<Select defaultValue="idr">
-											<SelectTrigger id="store-currency">
-												<SelectValue placeholder="Select currency" />
-											</SelectTrigger>
-											<SelectContent>
-												<SelectItem value="idr">
-													Indonesian Rupiah (IDR)
-												</SelectItem>
-												<SelectItem value="usd">
-													US Dollar (USD)
-												</SelectItem>
-												<SelectItem value="eur">
-													Euro (EUR)
-												</SelectItem>
-												<SelectItem value="sgd">
-													Singapore Dollar (SGD)
-												</SelectItem>
-											</SelectContent>
-										</Select>
-									</div>
-								</div>
-							</div>
-
-							<Separator />
-
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">Address</h3>
-								<div className="grid gap-4 md:grid-cols-2">
-									<div className="space-y-2 md:col-span-2">
-										<Label htmlFor="address-line1">
-											Address Line 1
-										</Label>
-										<Input
-											id="address-line1"
-											defaultValue="Jl. Sudirman No. 123"
-										/>
-									</div>
-									<div className="space-y-2 md:col-span-2">
-										<Label htmlFor="address-line2">
-											Address Line 2 (Optional)
-										</Label>
-										<Input
-											id="address-line2"
-											defaultValue="Karet Tengsin"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="city">City</Label>
-										<Input id="city" defaultValue="Jakarta" />
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="province">Province</Label>
-										<Input id="province" defaultValue="DKI Jakarta" />
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="postal-code">Postal Code</Label>
-										<Input id="postal-code" defaultValue="10220" />
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="country">Country</Label>
-										<Select defaultValue="id">
-											<SelectTrigger id="country">
-												<SelectValue placeholder="Select country" />
-											</SelectTrigger>
-											<SelectContent>
-												<SelectItem value="id">
-													Indonesia
-												</SelectItem>
-												<SelectItem value="sg">
-													Singapore
-												</SelectItem>
-												<SelectItem value="my">Malaysia</SelectItem>
-												<SelectItem value="th">Thailand</SelectItem>
-											</SelectContent>
-										</Select>
-									</div>
-								</div>
-							</div>
-
-							<Separator />
-
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">Business Hours</h3>
-								<div className="grid gap-4 md:grid-cols-2">
-									<div className="space-y-2">
-										<Label htmlFor="weekday-hours">
-											Weekday Hours
-										</Label>
-										<Input
-											id="weekday-hours"
-											defaultValue="09:00 - 18:00"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="weekend-hours">
-											Weekend Hours
-										</Label>
-										<Input
-											id="weekend-hours"
-											defaultValue="10:00 - 16:00"
-										/>
-									</div>
-								</div>
-								<div className="flex items-center space-x-2">
-									<Switch id="closed-holidays" />
-									<Label htmlFor="closed-holidays">
-										Closed on public holidays
-									</Label>
-								</div>
-							</div>
-						</CardContent>
-						<CardFooter>
-							<Button className="bg-pink-500 hover:bg-pink-600">
-								<Save className="mr-2 h-4 w-4" /> Save Changes
-							</Button>
-						</CardFooter>
-					</Card>
+					<GeneralTab
+						settings={settings}
+						updateField={updateField}
+						handleSaveChanges={handleSaveChanges}
+						loading={loading}
+					/>
 				</TabsContent>
 
 				<TabsContent value="appearance">
-					<Card>
-						<CardHeader>
-							<CardTitle>Appearance Settings</CardTitle>
-							<CardDescription>
-								Customize how your store looks to customers.
-							</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-6">
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">Theme</h3>
-								<div className="grid grid-cols-3 gap-4">
-									<div className="border-2 border-pink-500 rounded-lg p-4 text-center cursor-pointer">
-										<div className="h-20 bg-gradient-to-r from-pink-500 to-teal-500 rounded-md mb-2"></div>
-										<p className="font-medium">Default</p>
-									</div>
-									<div className="border border-gray-200 rounded-lg p-4 text-center cursor-pointer">
-										<div className="h-20 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-md mb-2"></div>
-										<p className="font-medium">Purple</p>
-									</div>
-									<div className="border border-gray-200 rounded-lg p-4 text-center cursor-pointer">
-										<div className="h-20 bg-gradient-to-r from-amber-500 to-orange-500 rounded-md mb-2"></div>
-										<p className="font-medium">Autumn</p>
-									</div>
-								</div>
-							</div>
-
-							<Separator />
-
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">Logo</h3>
-								<div className="flex items-center gap-4">
-									<div className="w-24 h-24 border border-gray-200 rounded-lg flex items-center justify-center">
-										<img
-											src="/logo-pitaya-transparan.png"
-											alt="Logo"
-											className="max-w-full max-h-full p-2"
-										/>
-									</div>
-									<Button variant="outline">Change Logo</Button>
-								</div>
-							</div>
-
-							<Separator />
-
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">Homepage Layout</h3>
-								<div className="space-y-2">
-									<div className="flex items-center space-x-2">
-										<Switch id="show-hero" defaultChecked />
-										<Label htmlFor="show-hero">
-											Show hero section
-										</Label>
-									</div>
-									<div className="flex items-center space-x-2">
-										<Switch id="show-featured" defaultChecked />
-										<Label htmlFor="show-featured">
-											Show featured products
-										</Label>
-									</div>
-									<div className="flex items-center space-x-2">
-										<Switch id="show-categories" defaultChecked />
-										<Label htmlFor="show-categories">
-											Show product categories
-										</Label>
-									</div>
-									<div className="flex items-center space-x-2">
-										<Switch id="show-testimonials" defaultChecked />
-										<Label htmlFor="show-testimonials">
-											Show testimonials
-										</Label>
-									</div>
-								</div>
-							</div>
-						</CardContent>
-						<CardFooter>
-							<Button className="bg-pink-500 hover:bg-pink-600">
-								<Save className="mr-2 h-4 w-4" /> Save Changes
-							</Button>
-						</CardFooter>
-					</Card>
+					<AppearanceTab
+						settings={settings}
+						updateField={updateField}
+						updateNestedField={updateNestedField}
+						handleSaveChanges={handleSaveChanges}
+						loading={loading}
+					/>
 				</TabsContent>
 
 				<TabsContent value="notifications">
-					<Card>
-						<CardHeader>
-							<CardTitle>Notification Settings</CardTitle>
-							<CardDescription>
-								Configure how you receive notifications about your
-								store.
-							</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-6">
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">
-									Email Notifications
-								</h3>
-								<div className="space-y-2">
-									<div className="flex items-center justify-between">
-										<div>
-											<Label
-												htmlFor="new-order"
-												className="block mb-1"
-											>
-												New Order
-											</Label>
-											<p className="text-sm text-muted-foreground">
-												Receive an email when a new order is placed
-											</p>
-										</div>
-										<Switch id="new-order" defaultChecked />
-									</div>
-									<Separator />
-									<div className="flex items-center justify-between">
-										<div>
-											<Label
-												htmlFor="order-status"
-												className="block mb-1"
-											>
-												Order Status Updates
-											</Label>
-											<p className="text-sm text-muted-foreground">
-												Receive emails when order status changes
-											</p>
-										</div>
-										<Switch id="order-status" defaultChecked />
-									</div>
-									<Separator />
-									<div className="flex items-center justify-between">
-										<div>
-											<Label
-												htmlFor="low-stock"
-												className="block mb-1"
-											>
-												Low Stock Alerts
-											</Label>
-											<p className="text-sm text-muted-foreground">
-												Get notified when products are running low
-											</p>
-										</div>
-										<Switch id="low-stock" defaultChecked />
-									</div>
-									<Separator />
-									<div className="flex items-center justify-between">
-										<div>
-											<Label
-												htmlFor="customer-messages"
-												className="block mb-1"
-											>
-												Customer Messages
-											</Label>
-											<p className="text-sm text-muted-foreground">
-												Receive emails for new customer inquiries
-											</p>
-										</div>
-										<Switch id="customer-messages" defaultChecked />
-									</div>
-								</div>
-							</div>
-
-							<Separator />
-
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">
-									Additional Recipients
-								</h3>
-								<div className="space-y-2">
-									<Label htmlFor="additional-emails">
-										Additional Email Addresses
-									</Label>
-									<Textarea
-										id="additional-emails"
-										placeholder="Enter email addresses separated by commas"
-										className="min-h-[100px]"
-									/>
-									<p className="text-sm text-muted-foreground">
-										These email addresses will also receive the
-										notifications you've enabled above
-									</p>
-								</div>
-							</div>
-						</CardContent>
-						<CardFooter>
-							<Button className="bg-pink-500 hover:bg-pink-600">
-								<Save className="mr-2 h-4 w-4" /> Save Changes
-							</Button>
-						</CardFooter>
-					</Card>
+					<NotificationsTab
+						settings={settings}
+						updateField={updateField}
+						updateNestedField={updateNestedField}
+						handleSaveChanges={handleSaveChanges}
+						loading={loading}
+					/>
 				</TabsContent>
 
 				<TabsContent value="shipping">
-					<Card>
-						<CardHeader>
-							<CardTitle>Shipping Settings</CardTitle>
-							<CardDescription>
-								Configure shipping options and delivery methods.
-							</CardDescription>
-						</CardHeader>
-						<CardContent>
-							<div className="space-y-6">
-								<div className="space-y-4">
-									<h3 className="text-lg font-medium">
-										Shipping Methods
-									</h3>
-									<div className="space-y-4">
-										<div className="flex items-center space-x-2">
-											<Switch id="jne" defaultChecked />
-											<Label htmlFor="jne">JNE</Label>
-										</div>
-										<div className="flex items-center space-x-2">
-											<Switch id="j&t" defaultChecked />
-											<Label htmlFor="j&t">J&T Express</Label>
-										</div>
-										<div className="flex items-center space-x-2">
-											<Switch id="sicepat" defaultChecked />
-											<Label htmlFor="sicepat">SiCepat</Label>
-										</div>
-										<div className="flex items-center space-x-2">
-											<Switch id="pos" />
-											<Label htmlFor="pos">POS Indonesia</Label>
-										</div>
-										<div className="flex items-center space-x-2">
-											<Switch id="gosend" defaultChecked />
-											<Label htmlFor="gosend">GoSend</Label>
-										</div>
-									</div>
-								</div>
-
-								<Separator />
-
-								<div className="space-y-4">
-									<h3 className="text-lg font-medium">
-										Free Shipping
-									</h3>
-									<div className="flex items-center space-x-2">
-										<Switch
-											id="enable-free-shipping"
-											defaultChecked
-										/>
-										<Label htmlFor="enable-free-shipping">
-											Enable free shipping for orders above threshold
-										</Label>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="free-shipping-threshold">
-											Minimum Order Amount for Free Shipping (Rp)
-										</Label>
-										<Input
-											id="free-shipping-threshold"
-											type="number"
-											defaultValue="500000"
-										/>
-									</div>
-								</div>
-
-								<Separator />
-
-								<div className="space-y-4">
-									<h3 className="text-lg font-medium">
-										Shipping Zones
-									</h3>
-									<div className="space-y-2">
-										<div className="flex items-center justify-between p-4 border rounded-lg">
-											<div>
-												<h4 className="font-medium">
-													Jakarta & Surrounding Areas
-												</h4>
-												<p className="text-sm text-muted-foreground">
-													Jakarta, Bogor, Depok, Tangerang, Bekasi
-												</p>
-											</div>
-											<Button variant="outline" size="sm">
-												Edit
-											</Button>
-										</div>
-										<div className="flex items-center justify-between p-4 border rounded-lg">
-											<div>
-												<h4 className="font-medium">Java</h4>
-												<p className="text-sm text-muted-foreground">
-													West Java, Central Java, East Java,
-													Yogyakarta
-												</p>
-											</div>
-											<Button variant="outline" size="sm">
-												Edit
-											</Button>
-										</div>
-										<div className="flex items-center justify-between p-4 border rounded-lg">
-											<div>
-												<h4 className="font-medium">
-													Other Islands
-												</h4>
-												<p className="text-sm text-muted-foreground">
-													Sumatra, Kalimantan, Sulawesi, Bali, etc.
-												</p>
-											</div>
-											<Button variant="outline" size="sm">
-												Edit
-											</Button>
-										</div>
-										<Button variant="outline" className="w-full mt-2">
-											<Plus className="mr-2 h-4 w-4" /> Add Shipping
-											Zone
-										</Button>
-									</div>
-								</div>
-							</div>
-						</CardContent>
-						<CardFooter>
-							<Button className="bg-pink-500 hover:bg-pink-600">
-								<Save className="mr-2 h-4 w-4" /> Save Changes
-							</Button>
-						</CardFooter>
-					</Card>
+					<ShippingTab
+						settings={settings}
+						updateNestedField={updateNestedField}
+						toggleShippingProvider={toggleShippingProvider}
+						handleSaveChanges={handleSaveChanges}
+						loading={loading}
+						onZonesChange={handleZonesChange}
+					/>
 				</TabsContent>
 
 				<TabsContent value="payment">
-					<Card>
-						<CardHeader>
-							<CardTitle>Payment Settings</CardTitle>
-							<CardDescription>
-								Configure payment methods and options.
-							</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-6">
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">Payment Methods</h3>
-								<div className="space-y-4">
-									<div className="flex items-center justify-between p-4 border rounded-lg">
-										<div className="flex items-center gap-4">
-											<div className="w-10 h-10 bg-blue-100 rounded-md flex items-center justify-center">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													className="h-6 w-6 text-blue-600"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-												>
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth={2}
-														d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-													/>
-												</svg>
-											</div>
-											<div>
-												<h4 className="font-medium">
-													Bank Transfer
-												</h4>
-												<p className="text-sm text-muted-foreground">
-													Manual verification
-												</p>
-											</div>
-										</div>
-										<Switch id="bank-transfer" defaultChecked />
-									</div>
-
-									<div className="flex items-center justify-between p-4 border rounded-lg">
-										<div className="flex items-center gap-4">
-											<div className="w-10 h-10 bg-green-100 rounded-md flex items-center justify-center">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													className="h-6 w-6 text-green-600"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-												>
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth={2}
-														d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-													/>
-												</svg>
-											</div>
-											<div>
-												<h4 className="font-medium">E-Wallet</h4>
-												<p className="text-sm text-muted-foreground">
-													GoPay, OVO, DANA, LinkAja
-												</p>
-											</div>
-										</div>
-										<Switch id="e-wallet" defaultChecked />
-									</div>
-
-									<div className="flex items-center justify-between p-4 border rounded-lg">
-										<div className="flex items-center gap-4">
-											<div className="w-10 h-10 bg-yellow-100 rounded-md flex items-center justify-center">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													className="h-6 w-6 text-yellow-600"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-												>
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth={2}
-														d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"
-													/>
-												</svg>
-											</div>
-											<div>
-												<h4 className="font-medium">
-													Cash on Delivery
-												</h4>
-												<p className="text-sm text-muted-foreground">
-													Pay when you receive
-												</p>
-											</div>
-										</div>
-										<Switch id="cod" />
-									</div>
-
-									<div className="flex items-center justify-between p-4 border rounded-lg">
-										<div className="flex items-center gap-4">
-											<div className="w-10 h-10 bg-purple-100 rounded-md flex items-center justify-center">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													className="h-6 w-6 text-purple-600"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-												>
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth={2}
-														d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-													/>
-												</svg>
-											</div>
-											<div>
-												<h4 className="font-medium">
-													Credit/Debit Card
-												</h4>
-												<p className="text-sm text-muted-foreground">
-													Visa, Mastercard, JCB
-												</p>
-											</div>
-										</div>
-										<Switch id="card" defaultChecked />
-									</div>
-								</div>
-							</div>
-
-							<Separator />
-
-							<div className="space-y-4">
-								<h3 className="text-lg font-medium">
-									Bank Account Details
-								</h3>
-								<div className="grid gap-4 md:grid-cols-2">
-									<div className="space-y-2">
-										<Label htmlFor="bank-name">Bank Name</Label>
-										<Input
-											id="bank-name"
-											defaultValue="Bank Central Asia (BCA)"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="account-number">
-											Account Number
-										</Label>
-										<Input
-											id="account-number"
-											defaultValue="1234567890"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="account-name">
-											Account Holder Name
-										</Label>
-										<Input
-											id="account-name"
-											defaultValue="PT PITAYA INDONESIA"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="branch">Branch</Label>
-										<Input
-											id="branch"
-											defaultValue="Jakarta Sudirman"
-										/>
-									</div>
-								</div>
-							</div>
-						</CardContent>
-						<CardFooter>
-							<Button className="bg-pink-500 hover:bg-pink-600">
-								<Save className="mr-2 h-4 w-4" /> Save Changes
-							</Button>
-						</CardFooter>
-					</Card>
+					<PaymentTab
+						settings={settings}
+						togglePaymentMethod={togglePaymentMethod}
+						handleSaveChanges={handleSaveChanges}
+						loading={loading}
+					/>
 				</TabsContent>
 			</Tabs>
 		</div>

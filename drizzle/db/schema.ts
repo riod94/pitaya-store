@@ -36,6 +36,7 @@ export const paymentMethodTypeEnum = pgEnum('payment_method_type', [
   'cod_internal_courier', // metode baru
   'crypto',
   'virtual_account',
+  'qris', // QRIS payment
 ])
 export const providerStatusEnum = pgEnum('provider_status', ['active', 'inactive'])
 export const settingTypeEnum = pgEnum('setting_type', ['text', 'number', 'boolean', 'json', 'image', 'color'])
@@ -530,6 +531,46 @@ export const siteSettings = pgTable("site_setting", {
   sortOrder: integer("sort_order").default(0),
   createdAt: timestamp("createdAt").notNull().defaultNow(),
   updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+})
+
+// Bank Accounts (untuk pembayaran manual bank transfer)
+export const bankAccounts = pgTable("bank_account", {
+  id: serial("id").primaryKey(),
+  bankName: text("bank_name").notNull(), // Contoh: "BCA", "Mandiri", "BNI"
+  accountNumber: text("account_number").notNull(),
+  accountHolderName: text("account_holder_name").notNull(),
+  branch: text("branch"), // Cabang bank (optional)
+  swiftCode: text("swift_code"), // Untuk international transfer (optional)
+  logo: text("logo"), // URL logo bank
+  isActive: boolean("is_active").notNull().default(true),
+  sortOrder: integer("sort_order").default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+})
+
+// E-Wallet Accounts (untuk pembayaran manual e-wallet)
+export const ewalletAccounts = pgTable("ewallet_account", {
+  id: serial("id").primaryKey(),
+  provider: text("provider").notNull(), // Contoh: "GoPay", "OVO", "DANA", "LinkAja", "ShopeePay"
+  accountNumber: text("account_number").notNull(), // Nomor HP atau ID akun
+  accountHolderName: text("account_holder_name").notNull(),
+  logo: text("logo"), // URL logo e-wallet
+  qrCode: text("qr_code"), // URL QR code untuk scan (optional)
+  isActive: boolean("is_active").notNull().default(true),
+  sortOrder: integer("sort_order").default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+})
+
+// QRIS Settings (untuk pembayaran QRIS)
+export const qrisSettings = pgTable("qris_setting", {
+  id: serial("id").primaryKey(),
+  merchantName: text("merchant_name").notNull(), // Nama merchant
+  qrCodeImage: text("qr_code_image").notNull(), // URL gambar QR code dari ImageKit
+  qrCodeImageId: text("qr_code_image_id"), // ImageKit file ID untuk delete
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 })
 
 // Relations untuk tabel baru
