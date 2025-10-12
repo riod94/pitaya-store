@@ -8,6 +8,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import { QueryProvider } from "@/providers/query-provider";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -32,19 +33,21 @@ export default async function RootLayout({
 	return (
 		<html lang={locale} className="scroll-smooth">
 			<body className={inter.className}>
-				<NextIntlClientProvider locale={locale} messages={messages}>
-					{isAdminRoute ? (
-						children
-					) : (
-						<>
-							<SessionProvider>
-								<Navbar />
-							</SessionProvider>
-							{children}
-							<Footer />
-						</>
-					)}
-				</NextIntlClientProvider>
+				<QueryProvider>
+					<NextIntlClientProvider locale={locale} messages={messages}>
+						{isAdminRoute ? (
+							children
+						) : (
+							<>
+								<SessionProvider>
+									<Navbar />
+								</SessionProvider>
+								{children}
+								<Footer />
+							</>
+						)}
+					</NextIntlClientProvider>
+				</QueryProvider>
 				<Toaster richColors closeButton position="top-right" />
 			</body>
 		</html>

@@ -330,7 +330,7 @@ export default function SettingsPage() {
 			</div>
 
 			<Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
-				<TabsList>
+				<TabsList className="grid w-full md:grid-cols-5">
 					<TabsTrigger value="general">General</TabsTrigger>
 					<TabsTrigger value="appearance">Appearance</TabsTrigger>
 					<TabsTrigger value="notifications">Notifications</TabsTrigger>

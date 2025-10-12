@@ -573,6 +573,57 @@ export const qrisSettings = pgTable("qris_setting", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 })
 
+// Website Content Management
+export const contentTypeEnum = pgEnum('content_type', ['hero', 'banner', 'testimonial'])
+
+// Hero Section Content
+export const heroContent = pgTable("hero_content", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  subtitle: text("subtitle").notNull(),
+  imageUrl: text("image_url"),
+  imageId: text("image_id"), // ImageKit file ID
+  buttonText: text("button_text"),
+  buttonUrl: text("button_url"),
+  isActive: boolean("is_active").notNull().default(true),
+  sortOrder: integer("sort_order").default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+})
+
+// Banners/Promotional Content
+export const banners = pgTable("banner", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  imageUrl: text("image_url").notNull(),
+  imageId: text("image_id"), // ImageKit file ID
+  buttonText: text("button_text"),
+  buttonUrl: text("button_url"),
+  isActive: boolean("is_active").notNull().default(true),
+  sortOrder: integer("sort_order").default(0),
+  startDate: timestamp("start_date"),
+  endDate: timestamp("end_date"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+})
+
+// Customer Testimonials
+export const testimonials = pgTable("testimonial", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  role: text("role"), // Pekerjaan atau jabatan
+  company: text("company"), // Nama perusahaan (optional)
+  content: text("content").notNull(),
+  imageUrl: text("image_url"),
+  imageId: text("image_id"), // ImageKit file ID
+  rating: integer("rating"), // Rating 1-5 stars
+  isActive: boolean("is_active").notNull().default(true),
+  sortOrder: integer("sort_order").default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+})
+
 // Relations untuk tabel baru
 export const shippingProvidersRelations = relations(shippingProviders, ({ many }) => ({
   orders: many(orders),
@@ -580,4 +631,16 @@ export const shippingProvidersRelations = relations(shippingProviders, ({ many }
 
 export const paymentMethodsRelations = relations(paymentMethods, ({ many }) => ({
   orders: many(orders),
+}))
+
+export const heroContentRelations = relations(heroContent, ({ many }) => ({
+  // Hero content tidak memiliki relasi khusus untuk saat ini
+}))
+
+export const bannersRelations = relations(banners, ({ many }) => ({
+  // Banner tidak memiliki relasi khusus untuk saat ini
+}))
+
+export const testimonialsRelations = relations(testimonials, ({ many }) => ({
+  // Testimonial tidak memiliki relasi khusus untuk saat ini
 }))
